@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@clerk/nextjs": "^6.9.6",
     "@prisma/client": "^6.1.0",
     "axios": "^1.7.9",
     "formik": "^2.4.6",

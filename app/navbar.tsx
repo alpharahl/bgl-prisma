@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from "next/image";
 import Link from "next/link";
+import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
 
 const Navbar = () => {
   return (
@@ -10,6 +11,14 @@ const Navbar = () => {
       </Link>
       <div>
         <Link href={"/bwrl"}>BWRL</Link>
+      </div>
+      <div>
+        <SignedOut>
+          <SignInButton/>
+        </SignedOut>
+        <SignedIn>
+          <UserButton/>
+        </SignedIn>
       </div>
     </div>
   )
