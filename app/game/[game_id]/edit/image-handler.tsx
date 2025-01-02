@@ -1,8 +1,14 @@
 import React from 'react';
+import {useFormikContext} from "formik";
 
 const ImageHandler = () => {
+  const props = useFormikContext()
   return (
-    <div>Image-handler</div>
+    <input id="logo" name="logo" type="file" onChange={(event) => {
+      if (event.currentTarget.files) {
+        props.setFieldValue("logo", event.currentTarget?.files[0]);
+      }
+    }}/>
   )
 }
 

@@ -1,11 +1,12 @@
 'use client'
 import React from 'react';
-import {Field, Form, Formik, useFormik, useFormikContext} from "formik";
+import {Field, Form, Formik} from "formik";
+import ImageHandler from "@/app/game/[game_id]/edit/image-handler";
 
-const Edit = ({game}: {game: any}) => {
+const Edit = ({game, handler}: {game: any, handler: Function}) => {
   return (
     <Formik
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={async (values) => {await handler(values, game)}}
       initialValues={{
         name: game.name,
         logo: null
@@ -18,12 +19,9 @@ const Edit = ({game}: {game: any}) => {
         </div>
         <div className="flex gap-5 items-center">
           <div>Logo</div>
-          <input id="logo" name="logo" type="file" onChange={(event) => {
-            if (event.currentTarget.files) {
-              useFormikContext().setFieldValue("logo", event.currentTarget?.files[0]);
-            }
-          }}/>
+          <ImageHandler/>
         </div>
+        <div><button className={"p-2 rounded-md "} type={"submit"}>Update</button> </div>
       </Form>
     </Formik>
   )
