@@ -1,6 +1,7 @@
 import Image from "next/image";
 import {ReactNode} from "react";
 import {PrismaClient} from "@prisma/client";
+import OurLeagues from "@/app/our-leagues";
 
 export default async function Home(): Promise<ReactNode> {
   const prisma = new PrismaClient();
@@ -8,59 +9,15 @@ export default async function Home(): Promise<ReactNode> {
   return (
     <div className="">
       <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        {games.map(game => {
-          return <div key={game.id}>
-            {game.logo && <Image src={game.logo} alt={""} width={200} height={200}/>}
+        <div className="bg-slate-900 w-full flex items-center justify-between  h-[400px] text-white text-4xl mr-auto">
+          <div className="max-w-4xl mx-auto flex justify-between items-center gap-10">
+            <h1>Welcome To<br/>Broken Gaming Leagues</h1>
+            <Image src={"/assets/v2 Vector.svg"} width={300} height={300} alt={""}/>
           </div>
-        })}
+        </div>
+        <OurLeagues/>
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
     </div>
   );
 }

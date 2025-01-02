@@ -10,7 +10,7 @@ const Navbar = () => {
         <Image src={"/assets/v2 Vector.svg"} alt={"Broken Gaming League Logo"} width={100} height={100}/>
       </Link>
       <div>
-        <Link href={"/bwrl"}>BWRL</Link>
+        <Link href={"/bwrl"} className={"hover:border-slate-700 border-b-2"}>BWRL</Link>
       </div>
       <div>
         <SignedOut>
