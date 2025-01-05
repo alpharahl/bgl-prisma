@@ -4,7 +4,7 @@ import {PrismaClient} from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-const handler = async (values: {name: string, logo: File}, game: any) => {
+const handler = async (values: {name: string, logo: string}, game: any) => {
   "use server"
   console.log(values)
   await prisma.game.update({
@@ -12,7 +12,7 @@ const handler = async (values: {name: string, logo: File}, game: any) => {
       id: game.id
     },
     data: {
-      logo: await values.logo.bytes()
+      logo: await values.logo
     }
   })
 }

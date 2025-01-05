@@ -30,11 +30,11 @@ export default function RootLayout({
 
       <html lang="en">
       <body
-        className={``}
+        className={`flex flex-col min-h-screen gap-3`}
       >
       <Navbar/>
       {children}
-      <Footer/>
+      <Footer />
       </body>
       </html>
     </ClerkProvider>

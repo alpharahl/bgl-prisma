@@ -24,11 +24,25 @@ model Game {
 }
 
 model League {
-  id       Int     @id @default(autoincrement())
-  name     String  @unique
-  acronymn String  @unique
+  id       Int      @id @default(autoincrement())
+  name     String   @unique
+  acronymn String   @unique
   about    String?
-  game     Game    @relation(fields: [gameId], references: [id])
+  game     Game     @relation(fields: [gameId], references: [id])
   gameId   Int
   logo     String?
+  Series   Series[]
+}
+
+model Admins {
+  id         String  @id
+  breakGlass Boolean @default(false)
+}
+
+model Series {
+  id       Int    @id @default(autoincrement())
+  name     String
+  logo     String
+  league   League @relation(fields: [leagueId], references: [id])
+  leagueId Int
 }

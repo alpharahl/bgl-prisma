@@ -17,7 +17,7 @@ const OurLeagues = async () => {
     <div className="text-center flex flex-col w-full gap-10">
       <h2 className="mx-auto text-3xl">Our Leagues</h2>
       <div className="flex flex-wrap gap-10 justify-around items-center mx-10">
-        {leagues.map(league => (
+        {leagues.map((league: any) => (
           <Link
             href={`/league/${league.id}`} key={league.id}
             className={"flex flex-col items-center gap-3 border-2 p-3 rounded-lg transition-colors duration-200 hover:border-slate-400 hover:bg-slate-100"}

@@ -1,15 +1,22 @@
 
-import React from 'react';
+import React, {ReactNode} from 'react';
 import Edit from "@/app/game/[game_id]/edit/edit";
 import {PrismaClient} from "@prisma/client";
 
 import {handler} from "./actions";
 
-const Page = async ({params}: {params: {game_id: string}}) => {
+type editProps = {
+  params: Promise<{
+    game_id: string
+  }>
+}
+
+const Page = async ({params}: editProps) => {
   const prisma = new PrismaClient();
+  const game_id = (await params).game_id;
   const game = await prisma.game.findUniqueOrThrow({
     where: {
-      id: parseInt(params.game_id)
+      id: parseInt(game_id)
     }
   })
 

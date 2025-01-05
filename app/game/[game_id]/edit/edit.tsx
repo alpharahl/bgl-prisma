@@ -2,8 +2,9 @@
 import React from 'react';
 import {Field, Form, Formik} from "formik";
 import ImageHandler from "@/app/game/[game_id]/edit/image-handler";
+import {Game} from "@prisma/client";
 
-const Edit = ({game, handler}: {game: any, handler: Function}) => {
+const Edit = ({game, handler}: {game: Game, handler: Function}) => {
   return (
     <Formik
       onSubmit={async (values) => {await handler(values, game)}}

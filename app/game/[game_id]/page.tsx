@@ -1,5 +1,5 @@
-import React from 'react';
-import {PrismaClient} from "@prisma/client";
+import React, {ReactNode} from 'react';
+import {PrismaClient, Game} from "@prisma/client";
 import {arrayBufferToString} from "next/dist/server/app-render/encryption-utils";
 function arrayBufferToBase64(buffer: Uint8Array) {
   let binary = '';
@@ -12,11 +12,18 @@ function arrayBufferToBase64(buffer: Uint8Array) {
 
   return btoa(binary);
 }
-const Page = async ({params}: {params: {game_id: string}}) => {
+
+type pageProps = {
+  params: Promise<{
+    game_id: string
+  }>
+}
+const Page = async ({params}: pageProps): Promise<ReactNode> => {
   const prisma = new PrismaClient();
+  const game_id = (await params).game_id;
   const game = await prisma.game.findUniqueOrThrow({
     where: {
-      id: parseInt(params.game_id)
+      id: parseInt(game_id)
     },
     include: {
       League: true
@@ -27,7 +34,7 @@ const Page = async ({params}: {params: {game_id: string}}) => {
     <div>
       <div>Name: {game.name}</div>
       <div>Leagues: {JSON.stringify(game.League)}</div>
-      {game.logo && <img src={`data:image/jpeg;base64,${arrayBufferToBase64(game.logo)}`}/>}
+
     </div>
   )
 }
