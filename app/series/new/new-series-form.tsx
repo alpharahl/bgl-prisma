@@ -14,10 +14,18 @@ const newSeriesForm = ({league}: { league: League }) => {
       }}
       onSubmit={createNewSeries}
     >
-      <Form>
-        <Field name={"name"}/>
-        <Field name={"logo"}/>
-        <button type={"submit"}>Create</button>
+      <Form className={"flex flex-col gap-5"}>
+        <div className="flex gap-2 items-center">
+          <label htmlFor="name" className={"w-[50px] text-center"}>Name</label>
+          <Field name={"name"} className={"rounded-md text-black p-2 border-slate-300 border"}/>
+        </div>
+        <div className="flex gap-2 items-center">
+          <label htmlFor="logo" className={"w-[50px] text-center"}>Logo</label>
+          <Field name={"logo"} className={"rounded-md text-black p-2 border-slate-300 border"}/>
+        </div>
+        <div className="flex">
+          <button type={"submit"} className={"bg-green-300 px-4 py-2 rounded-lg hover:bg-green-500 start"}>Create</button>
+        </div>
       </Form>
     </Formik>
   )
