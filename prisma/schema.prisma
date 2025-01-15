@@ -40,9 +40,21 @@ model Admins {
 }
 
 model Series {
-  id       Int    @id @default(autoincrement())
-  name     String
-  logo     String
-  league   League @relation(fields: [leagueId], references: [id])
-  leagueId Int
+  id          Int     @id @default(autoincrement())
+  name        String
+  logo        String
+  league      League  @relation(fields: [leagueId], references: [id])
+  leagueId    Int
+  description String?
+  Event       Event[]
+}
+
+model Event {
+  id          Int      @id @default(autoincrement())
+  name        String
+  time        DateTime
+  description String
+  location    String
+  seriesId    Int
+  series      Series   @relation(fields: [seriesId], references: [id])
 }

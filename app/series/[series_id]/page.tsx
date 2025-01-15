@@ -2,6 +2,8 @@ import React from 'react';
 import {PrismaClient} from "@prisma/client";
 import {isAdmin} from "@/utils/admin";
 import Admin from "@/app/series/[series_id]/admin";
+import Image from "next/image";
+import Link from "next/link";
 
 type seriesProps = {
   params: Promise<{
@@ -16,13 +18,29 @@ const Page = async ({params}: seriesProps) => {
     where: {
       id: parseInt(series_id),
     },
+    include: {
+      Event: true
+    }
   })
   return (
     <div className={"mx-auto max-w-4xl w-screen"}>
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col gap-3 items-center justify-center">
+        <Image src={`/${series.logo}`} alt={`${series.name} logo`} width={250} height={250}/>
         <h1 className="text-3xl">{series.name}</h1>
+      </div>
+      <div className="mx-auto max-w-sm w-full my-10">
+        {series.description}
+      </div>
+      <div>
+        <div className="flex justify-between max-w-lg mx-auto items-center">
+          <h2 className={"text-xl"}>Upcoming Events</h2>
+          {await isAdmin() && <Link href={`/event/new/${series.id}`} className={"border-l-2 pl-3 border-l-orange-600 hover:bg-orange-200 p-2 rounded-md"}>Add Event</Link> }
+        </div>
+      </div>
+      <div className="flex items-center justify-between">
         {(await isAdmin()) && <Admin series={series}/>}
       </div>
+      {JSON.stringify(series)}
     </div>
   )
 }
