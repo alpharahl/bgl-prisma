@@ -3,8 +3,10 @@ import React from 'react';
 import {League} from "@prisma/client";
 import {Field, Form, Formik} from "formik";
 import {createNewSeries} from "@/app/series/new/actions";
+import {useRouter} from "next/navigation";
 
 const newSeriesForm = ({league}: { league: League }) => {
+  const router = useRouter();
   return (
     <Formik
       initialValues={{
@@ -12,7 +14,11 @@ const newSeriesForm = ({league}: { league: League }) => {
         logo: "",
         league_id: `${league.id}`
       }}
-      onSubmit={createNewSeries}
+      onSubmit={async (values) => {
+        const series = await createNewSeries(values)
+        console.log("series created", series)
+        router.push(`/series/${series?.id}`)
+      }}
     >
       <Form className={"flex flex-col gap-5"}>
         <div className="flex gap-2 items-center">

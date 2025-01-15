@@ -32,9 +32,9 @@ const Page = async ({params}: leagueProps) => {
         {(await isAdmin()) && <Link className={"border-2 border-l-orange-600 px-2 rounded-sm  hover:border-slate-300 hover:bg-slate-50 transition-colors duration-200"} href={`/series/new?league_id=${league_id}`}>Add Series</Link>}
       </div>
       {league.Series?.map(series => {
-        return <div key={series.id}>
+        return <Link href={`/series/${series.id}`} key={series.id}>
           {series.name}
-        </div>
+        </Link>
       })}
     </div>
   )
