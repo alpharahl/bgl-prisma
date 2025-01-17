@@ -19,7 +19,13 @@ const Page = async ({params}: seriesProps) => {
       id: parseInt(series_id),
     },
     include: {
-      Event: true
+      Event: {
+        where: {
+          time: {
+            gt: new Date()
+          }
+        }
+      }
     }
   })
   return (
@@ -36,11 +42,22 @@ const Page = async ({params}: seriesProps) => {
           <h2 className={"text-xl"}>Upcoming Events</h2>
           {await isAdmin() && <Link href={`/event/new/${series.id}`} className={"border-l-2 pl-3 border-l-orange-600 hover:bg-orange-200 p-2 rounded-md"}>Add Event</Link> }
         </div>
+        <div className="flex max-w-xs w-full flex-col gap-2 mx-auto">
+          {series.Event.map(event => (
+            <div key={event.id} className={"flex justify-between w-full p-3 "}>
+              <div>
+                {event.name}
+              </div>
+              <div>
+                {event.time.toLocaleString()}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
       <div className="flex items-center justify-between">
         {(await isAdmin()) && <Admin series={series}/>}
       </div>
-      {JSON.stringify(series)}
     </div>
   )
 }
