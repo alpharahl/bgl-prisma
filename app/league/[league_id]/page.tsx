@@ -25,7 +25,7 @@ const Page = async ({params}: leagueProps) => {
   const user = await currentUser()
 
   return (
-    <div className="mx-auto max-w-4xl w-screen">
+    <div className="mx-auto max-w-4xl w-screen p-5">
 
       <h1 className={"text-4xl text-center"}>{league.name}</h1>
       <div className="flex gap-5 items-center">
