@@ -5,7 +5,9 @@ import Navbar from "@/app/navbar";
 import {ClerkProvider} from "@clerk/nextjs";
 import Footer from "@/app/footer";
 
-const comfortaa = Comfortaa({})
+const comfortaa = Comfortaa({
+  subsets: ['latin']
+})
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
