@@ -32,6 +32,7 @@ model League {
   gameId   Int
   logo     String?
   Series   Series[]
+  discord  String?
 }
 
 model Admins {

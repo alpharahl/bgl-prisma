@@ -14,9 +14,6 @@ export default async function Home(): Promise<ReactNode> {
           <div className="max-w-4xl mx-auto flex justify-between items-center gap-10">
             <div>
               <h1>Welcome To<br/>Broken Gaming Leagues</h1>
-              <Link href={"https://discord.gg/7SXCqmgP"} className={"bg-[#5865F2] px-5 py-2 relative flex rounded-full max-w-[195px] mt-3"}>
-                <Image src={"/assets/discord-logo-white.svg"} alt={"Join us on discord"} width={158} height={30}/>
-              </Link>
             </div>
             <Image src={"/assets/v2 Vector.svg"} width={300} height={300} alt={""}/>
           </div>
