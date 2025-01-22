@@ -1,0 +1,6 @@
+-- CreateTable
+CREATE TABLE "Sponsor" (
+    "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    "leagueId" INTEGER NOT NULL,
+    CONSTRAINT "Sponsor_leagueId_fkey" FOREIGN KEY ("leagueId") REFERENCES "League" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+);

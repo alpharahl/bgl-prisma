@@ -3,6 +3,7 @@ import {PrismaClient, Prisma} from "@prisma/client";
 import SponsorWhereInput = Prisma.SponsorWhereInput;
 import Link from "next/link";
 import Image from "next/image";
+import {isAdmin} from "@/utils/admin";
 
 type ourSponsorsProps = {
   league?: number;
@@ -13,10 +14,14 @@ const OurSponsors = async ({league}: ourSponsorsProps) => {
   if (league) {
     where.leagueId = league
   }
+  if (!(await isAdmin())){
+    where.league?.hidden != true
+  }
   const prisma = new PrismaClient()
   const sponsors = await prisma.sponsor.findMany({
     where,
   })
+  if (sponsors.length === 0){return};
   return (
     <div className="w-full border-t-2 border-t-orange-600">
 
