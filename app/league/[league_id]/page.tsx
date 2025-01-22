@@ -4,6 +4,7 @@ import {currentUser} from "@clerk/nextjs/server";
 import {isAdmin} from "@/utils/admin";
 import Link from "next/link";
 import Image from "next/image";
+import OurSponsors from "@/app/our-sponsors";
 
 type leagueProps = {
   params: Promise<{
@@ -49,6 +50,7 @@ const Page = async ({params}: leagueProps) => {
           </Link>
         })}
       </div>
+      <OurSponsors league={league.id} />
     </div>
   )
 }

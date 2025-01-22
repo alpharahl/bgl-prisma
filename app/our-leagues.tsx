@@ -1,10 +1,16 @@
 import React from 'react';
-import {PrismaClient} from "@prisma/client";
+import {Prisma, PrismaClient} from "@prisma/client";
 import Link from "next/link";
 import Image from "next/image";
+import {isAdmin} from "@/utils/admin";
+import LeagueWhereInput = Prisma.LeagueWhereInput;
 
 const OurLeagues = async () => {
   const prisma = new PrismaClient();
+  const where:  LeagueWhereInput = {};
+  if (!(await isAdmin())){
+    where.hidden = false;
+  }
   const leagues = await prisma.league.findMany({
     select: {
       name: true,
@@ -12,6 +18,7 @@ const OurLeagues = async () => {
       id: true,
       game: true
     },
+    where
   });
   return (
     <div className="text-center flex flex-col w-full gap-10">

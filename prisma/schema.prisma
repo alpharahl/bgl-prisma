@@ -24,15 +24,17 @@ model Game {
 }
 
 model League {
-  id       Int      @id @default(autoincrement())
-  name     String   @unique
-  acronymn String   @unique
+  id       Int       @id @default(autoincrement())
+  name     String    @unique
+  acronymn String    @unique
   about    String?
-  game     Game     @relation(fields: [gameId], references: [id])
+  game     Game      @relation(fields: [gameId], references: [id])
   gameId   Int
   logo     String?
   Series   Series[]
   discord  String?
+  Sponsor  Sponsor[]
+  hidden   Boolean   @default(false)
 }
 
 model Admins {
@@ -48,6 +50,7 @@ model Series {
   leagueId    Int
   description String?
   Event       Event[]
+  hidden      Boolean @default(false)
 }
 
 model Event {
@@ -58,4 +61,14 @@ model Event {
   location    String
   seriesId    Int
   series      Series   @relation(fields: [seriesId], references: [id])
+}
+
+model Sponsor {
+  id       Int     @id @default(autoincrement())
+  league   League  @relation(fields: [leagueId], references: [id])
+  leagueId Int
+  name     String
+  link     String
+  logo     String
+  disabled Boolean @default(false)
 }

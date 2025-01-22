@@ -3,6 +3,7 @@ import {ReactNode} from "react";
 import {PrismaClient} from "@prisma/client";
 import OurLeagues from "@/app/our-leagues";
 import Link from "next/link";
+import OurSponsors from "@/app/our-sponsors";
 
 export default async function Home(): Promise<ReactNode> {
   const prisma = new PrismaClient();
@@ -19,6 +20,7 @@ export default async function Home(): Promise<ReactNode> {
           </div>
         </div>
         <OurLeagues/>
+        <OurSponsors/>
       </main>
 
     </div>
