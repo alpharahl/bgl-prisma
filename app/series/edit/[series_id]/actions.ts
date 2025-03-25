@@ -2,11 +2,11 @@
 
 import {isAdmin} from "@/utils/admin";
 import {PrismaClient} from "@prisma/client";
+import prisma from "@/lib/prisma";
 
 export const editSeries = async (seriesData: {name: string, description: string | null, logo: string, id: number})=> {
   'use server'
   if (!isAdmin()){return}
-  const prisma = new PrismaClient()
   await prisma.series.update({
     where: {
       id: seriesData.id,

@@ -1,8 +1,7 @@
 'use server'
 
-import {PrismaClient} from "@prisma/client";
 
-const prisma = new PrismaClient();
+import prisma from "@/lib/prisma";
 
 const handler = async (values: {name: string, logo: string}, game: any) => {
   "use server"

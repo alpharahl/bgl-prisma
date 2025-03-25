@@ -5,6 +5,7 @@ import {isAdmin} from "@/utils/admin";
 import Link from "next/link";
 import Image from "next/image";
 import OurSponsors from "@/app/our-sponsors";
+import prisma from "@/lib/prisma";
 
 type leagueProps = {
   params: Promise<{
@@ -13,7 +14,6 @@ type leagueProps = {
 }
 
 const Page = async ({params}: leagueProps) => {
-  const prisma = new PrismaClient();
   const league_id = (await params).league_id;
   const league = await prisma.league.findUniqueOrThrow({
     where: {

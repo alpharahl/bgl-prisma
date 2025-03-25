@@ -1,0 +1,1 @@
+export const authUrl = "https://members-ng.iracing.com/auth"

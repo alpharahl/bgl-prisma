@@ -1,9 +1,10 @@
 import React from 'react';
-import {PrismaClient, Prisma} from "@prisma/client";
+import {Prisma} from "@prisma/client";
 import SponsorWhereInput = Prisma.SponsorWhereInput;
 import Link from "next/link";
 import Image from "next/image";
 import {isAdmin} from "@/utils/admin";
+import prisma from "@/lib/prisma";
 
 type ourSponsorsProps = {
   league?: number;
@@ -17,7 +18,6 @@ const OurSponsors = async ({league}: ourSponsorsProps) => {
   if (!(await isAdmin())){
     where.league?.hidden != true
   }
-  const prisma = new PrismaClient()
   const sponsors = await prisma.sponsor.findMany({
     where,
   })

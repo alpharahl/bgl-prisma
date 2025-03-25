@@ -36,9 +36,9 @@ export default function RootLayout({
       <body
         className={`flex flex-col min-h-screen gap-3 ${comfortaa.className}`}
       >
-      <Navbar/>
+      {/*<Navbar/>*/}
       {children}
-      <Footer />
+      {/*<Footer />*/}
       </body>
       </html>
     </ClerkProvider>

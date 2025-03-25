@@ -1,6 +1,7 @@
 import React, {ReactNode} from 'react';
 import {PrismaClient, Game} from "@prisma/client";
 import {arrayBufferToString} from "next/dist/server/app-render/encryption-utils";
+import prisma from "@/lib/prisma";
 function arrayBufferToBase64(buffer: Uint8Array) {
   let binary = '';
   const bytes = new Uint8Array(buffer);
@@ -19,7 +20,6 @@ type pageProps = {
   }>
 }
 const Page = async ({params}: pageProps): Promise<ReactNode> => {
-  const prisma = new PrismaClient();
   const game_id = (await params).game_id;
   const game = await prisma.game.findUniqueOrThrow({
     where: {

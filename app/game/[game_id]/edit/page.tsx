@@ -4,6 +4,7 @@ import Edit from "@/app/game/[game_id]/edit/edit";
 import {PrismaClient} from "@prisma/client";
 
 import {handler} from "./actions";
+import prisma from "@/lib/prisma";
 
 type editProps = {
   params: Promise<{
@@ -12,7 +13,6 @@ type editProps = {
 }
 
 const Page = async ({params}: editProps) => {
-  const prisma = new PrismaClient();
   const game_id = (await params).game_id;
   const game = await prisma.game.findUniqueOrThrow({
     where: {

@@ -1,6 +1,7 @@
 import React from 'react';
 import {PrismaClient} from "@prisma/client";
 import NewSeriesForm from "@/app/series/new/new-series-form";
+import prisma from '@/lib/prisma';
 
 type pageProps = {
   searchParams: Promise<{league_id: string}>
@@ -8,7 +9,6 @@ type pageProps = {
 
 const Page = async ({searchParams}: pageProps) => {
   const league_id = (await searchParams).league_id;
-  const prisma = new PrismaClient()
   const league = await prisma.league.findUniqueOrThrow({
     where: {
       id: parseInt(league_id)

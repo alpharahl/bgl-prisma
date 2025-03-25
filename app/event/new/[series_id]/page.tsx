@@ -2,6 +2,7 @@ import React from 'react';
 import NewSeriesForm from "@/app/series/new/new-series-form";
 import NewEventForm from "@/app/event/new/[series_id]/newEventForm";
 import {PrismaClient} from "@prisma/client";
+import prisma from "@/lib/prisma";
 
 type newEventProps = {
   params: Promise<{
@@ -10,7 +11,6 @@ type newEventProps = {
 }
 
 const Page = async ({params}: newEventProps) => {
-  const prisma = new PrismaClient()
   const series = await prisma.series.findUniqueOrThrow({
     where: {
       id: parseInt((await params).series_id)

@@ -1,12 +1,12 @@
 import React from 'react';
-import {Prisma, PrismaClient} from "@prisma/client";
 import Link from "next/link";
 import Image from "next/image";
 import {isAdmin} from "@/utils/admin";
 import LeagueWhereInput = Prisma.LeagueWhereInput;
+import prisma from '@/lib/prisma';
+import { Prisma } from '@prisma/client';
 
 const OurLeagues = async () => {
-  const prisma = new PrismaClient();
   const where:  LeagueWhereInput = {};
   if (!(await isAdmin())){
     where.hidden = false;

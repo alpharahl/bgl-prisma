@@ -4,6 +4,7 @@ import {isAdmin} from "@/utils/admin";
 import Admin from "@/app/series/[series_id]/admin";
 import Image from "next/image";
 import Link from "next/link";
+import prisma from "@/lib/prisma";
 
 type seriesProps = {
   params: Promise<{
@@ -12,7 +13,6 @@ type seriesProps = {
 }
 
 const Page = async ({params}: seriesProps) => {
-  const prisma = new PrismaClient();
   const series_id = (await params).series_id;
   const series = await prisma.series.findUniqueOrThrow({
     where: {
