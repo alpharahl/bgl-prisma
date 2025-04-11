@@ -5,15 +5,15 @@ import {SignedIn, SignedOut, SignInButton, UserButton} from "@clerk/nextjs";
 import prisma from '@/lib/prisma';
 
 const Navbar = async () => {
-  // const leagues = await prisma.league.findMany({
-  //   select: {
-  //     id: true,
-  //     acronymn: true,
-  //   },
-  //   orderBy: {
-  //     id: 'asc'
-  //   }
-  // })
+  const leagues = await prisma.league.findMany({
+    select: {
+      id: true,
+      acronymn: true,
+    },
+    orderBy: {
+      id: 'asc'
+    }
+  })
   return (
     <div className={"flex justify-between px-10 py-3 items-center"}>
       <Link href={"/"}>
