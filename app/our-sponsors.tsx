@@ -2,7 +2,7 @@ import React from 'react';
 import {Prisma} from "@prisma/client";
 import SponsorWhereInput = Prisma.SponsorWhereInput;
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {isAdmin} from "@/utils/admin";
 import prisma from "@/lib/prisma";
 

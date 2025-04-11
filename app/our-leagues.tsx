@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {isAdmin} from "@/utils/admin";
 import LeagueWhereInput = Prisma.LeagueWhereInput;
 import prisma from '@/lib/prisma';
@@ -30,7 +30,7 @@ const OurLeagues = async () => {
             className={"flex flex-col items-center gap-3 border-2 p-3 rounded-lg transition-colors duration-200 hover:border-slate-400 hover:bg-slate-100"}
           >
             <div className="relative w-full h-[300px]">
-              {league.logo && <Image src={league.logo} alt={`${league.name} logo`} fill objectFit="contain" />}
+              {league.logo && <Image src={league.logo} alt={`${league.name} logo`} layout={"fill"} objectFit="contain" />}
             </div>
             <h3 className="text-2xl">{league.name}</h3>
           </Link>

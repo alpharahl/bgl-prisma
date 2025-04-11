@@ -1,4 +1,4 @@
-import Image from "next/image";
+import Image from "next/legacy/image";
 import {ReactNode} from "react";
 import OurLeagues from "@/app/our-leagues";
 import Link from "next/link";

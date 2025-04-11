@@ -3,7 +3,7 @@ import {PrismaClient} from "@prisma/client";
 import {currentUser} from "@clerk/nextjs/server";
 import {isAdmin} from "@/utils/admin";
 import Link from "next/link";
-import Image from "next/image";
+import Image from "next/legacy/image";
 import OurSponsors from "@/app/our-sponsors";
 import prisma from "@/lib/prisma";
 
