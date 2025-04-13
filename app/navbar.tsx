@@ -10,6 +10,9 @@ const Navbar = async () => {
       id: true,
       acronymn: true,
     },
+    where: {
+      hidden: false
+    },
     orderBy: {
       id: 'asc'
     }
