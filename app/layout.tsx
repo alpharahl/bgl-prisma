@@ -32,7 +32,7 @@ export default function RootLayout({
 
       <html lang="en">
       <body
-        className={`flex flex-col min-h-screen gap-3 ${comfortaa.className}`}
+        className={`flex flex-col min-h-screen gap-3  bg-primary/20 ${comfortaa.className}`}
       >
         <Navbar/>
         {children}

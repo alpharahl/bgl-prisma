@@ -1,25 +1,23 @@
-import {ReactNode} from "react";
+import React, {ReactNode} from "react";
 import Link from "next/link";
+import Image from "next/legacy/image";
+import Cars from "@/assets/bwrl-cars.avif";
 
 export default async function Home(): Promise<ReactNode> {
   return (
-    <div className="">
-      <main className="flex flex-col gap-8 row-start-2 w-full max-w-4xl items-center text-center mx-auto">
-        <h1 className={"text-primary text-4xl"}>Broken Wing Racing League</h1>
-        <h2 className="text-xl">Penalty System</h2>
-        <Link href={"/report/new"}>Report New Penalty</Link>
-        {/*<div className="bg-slate-900 w-full flex items-center justify-between  h-[400px] text-white text-4xl mr-auto">*/}
-        {/*  <div className="max-w-4xl mx-auto flex justify-between items-center gap-10">*/}
-        {/*    <div>*/}
-        {/*      <h1>Welcome To<br/>Broken Gaming Leagues</h1>*/}
-        {/*    </div>*/}
-        {/*    <Image src={"/assets/v2 Vector.svg"} width={300} height={300} alt={""}/>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
-        {/*<OurLeagues/>*/}
-        {/*/!*<OurSponsors/>*!/*/}
+    <div className="relative min-h-[600px] ">
+
+      <main className="flex flex-col gap-8 row-start-2 w-full max-w-4xl mx-auto mt-20">
+        <h1 className={" text-4xl"}>Broken Wing Racing League</h1>
+        <p className={"text-xl font-bold"}>Welcome to BWRL. We are a community of sim racer's here for friendly competition.</p>
+        <div>
+          <Link href={'/get-started'} className={"bg-primary text-white rounded-full hover:bg-primary/80 active:bg-primary/40 active:text-black px-5 py-3"}>Get Started</Link>
+        </div>
       </main>
 
+      <div className="inset-0 absolute -z-10 opacity-40">
+        <Image src={Cars.src} layout={"fill"} objectFit={"cover"}/>
+      </div>
     </div>
   );
 }
