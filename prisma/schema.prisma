@@ -75,6 +75,15 @@ model Series {
   Event       Event[]
   hidden      Boolean  @default(false)
   Report      Report[]
+  cars        Car[]
+}
+
+model Car {
+  id        Int     @id @default(autoincrement())
+  name      String
+  shorthand String
+  Series    Series? @relation(fields: [seriesId], references: [id])
+  seriesId  Int?
 }
 
 model Event {

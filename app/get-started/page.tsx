@@ -2,7 +2,6 @@ import React from 'react';
 import Link from "next/link";
 import Image from "next/legacy/image";
 import Discord from '@/assets/Discord-Logo-Blurple.svg';
-import Cars from '@/assets/bwrl-cars.avif'
 
 const Page = () => {
   return (
