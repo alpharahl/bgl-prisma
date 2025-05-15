@@ -9,7 +9,7 @@ export default function SignInWithDiscord() {
         await signIn("discord")
       }}
     >
-      <button type="submit">Signin with Discord</button>
+      <button type="submit">Sign In</button>
     </form>
   )
 } 
