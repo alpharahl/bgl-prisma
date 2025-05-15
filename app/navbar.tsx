@@ -1,8 +1,12 @@
 import React from 'react';
 import Image from "next/legacy/image";
 import Link from "next/link";
+import SignInWithDiscord from "@/components/sign-in-button";
+import {auth} from "@/auth";
 
 const Navbar = async () => {
+  const session = await auth()
+
 
   return (
 
@@ -11,6 +15,7 @@ const Navbar = async () => {
           <Image src={"/assets/v2 Vector.svg"} alt={"Broken Gaming League Logo"} width={100} height={100}/>
         </Link>
         <div>
+          {session ? session.user?.name : <SignInWithDiscord/>}
         </div>
       </div>
   )
