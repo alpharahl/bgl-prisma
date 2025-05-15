@@ -12,9 +12,11 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  name           String?
+  reportsMade    Report[] @relation(name: "Reporter")
+  reportsAgainst Report[] @relation(name: "Reportee")
 }
 
 model Game {
@@ -22,6 +24,25 @@ model Game {
   name   String   @unique
   League League[]
   logo   String?
+}
+
+model Report {
+  id           Int     @id @default(autoincrement())
+  reporter     User    @relation(name: "Reporter", references: [id], fields: [reporterId])
+  reporterId   Int
+  reportee     User    @relation(name: "Reportee", references: [id], fields: [reporteeId])
+  reporteeId   Int
+  reporterName String
+  reporteeName String
+  event        Event   @relation(fields: [eventId], references: [id])
+  eventId      Int
+  series       Series  @relation(fields: [seriesId], references: [id])
+  videoLink    String
+  lap          Int
+  description  String
+  seriesId     Int
+  League       League? @relation(fields: [leagueId], references: [id])
+  leagueId     Int?
 }
 
 model League {
@@ -36,6 +57,7 @@ model League {
   discord  String?
   Sponsor  Sponsor[]
   hidden   Boolean   @default(false)
+  Report   Report[]
 }
 
 model Admins {
@@ -44,14 +66,15 @@ model Admins {
 }
 
 model Series {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   logo        String
-  league      League  @relation(fields: [leagueId], references: [id])
+  league      League   @relation(fields: [leagueId], references: [id])
   leagueId    Int
   description String?
   Event       Event[]
-  hidden      Boolean @default(false)
+  hidden      Boolean  @default(false)
+  Report      Report[]
 }
 
 model Event {
@@ -62,6 +85,7 @@ model Event {
   location    String
   seriesId    Int
   series      Series   @relation(fields: [seriesId], references: [id])
+  Report      Report[]
 }
 
 model Sponsor {

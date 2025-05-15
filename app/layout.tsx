@@ -2,7 +2,6 @@ import type {Metadata} from "next";
 import {Geist, Geist_Mono, Comfortaa} from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/navbar";
-import {ClerkProvider} from "@clerk/nextjs";
 import Footer from "@/app/footer";
 
 const comfortaa = Comfortaa({
@@ -30,17 +29,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
 
       <html lang="en">
       <body
         className={`flex flex-col min-h-screen gap-3 ${comfortaa.className}`}
       >
-      <Navbar/>
-      {children}
-      <Footer />
+        <Navbar/>
+        {children}
+        <Footer />
       </body>
       </html>
-    </ClerkProvider>
   );
 }
