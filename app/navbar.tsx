@@ -15,6 +15,7 @@ const Navbar = async () => {
           <Image src={"/assets/v2 Vector.svg"} alt={"Broken Gaming League Logo"} width={100} height={100}/>
         </Link>
         <div>
+          {JSON.stringify(session)}
           {session ? session.user?.name : <SignInWithDiscord/>}
         </div>
       </div>
