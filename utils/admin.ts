@@ -7,7 +7,7 @@ export const isAdmin = async () => {
   if (!session || !session.user){return false}
   const admin = await prisma.admins.findUnique({
     where: {
-      id: session.user.email,
+      id: session.user.email ? session.user.email : undefined,
     }
   })
   return !!admin;
