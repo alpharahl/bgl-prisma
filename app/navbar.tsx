@@ -6,7 +6,11 @@ import {auth} from "@/auth";
 
 const Navbar = async () => {
   const session = await auth()
-  console.log('session', session)
+  let falseSession = false;
+  // @ts-ignore
+  if (session?.message === "There was a problem with the server configuration. Check the server logs for more information."){
+    falseSession = true;
+  }
   return (
 
       <div className={"flex justify-between px-10 py-3 items-center"}>
@@ -16,7 +20,7 @@ const Navbar = async () => {
         <div>
           <div>Nav auth</div>
           {JSON.stringify(session)}
-          {session ? session.user?.name : <SignInWithDiscord/>}
+          {(session && !falseSession) ? session.user?.name : <SignInWithDiscord/>}
         </div>
       </div>
   )
