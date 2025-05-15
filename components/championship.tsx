@@ -9,14 +9,14 @@ type ChampionshipProps = {
 }
 const Championship = ({championship}: ChampionshipProps) => {
   return (
-    <div className={"w-screen border-2 border-primary max-w-4xl p-3 m-5"}>
-      <div className="flex justify-between border-b-2 border-primary/50">
+    <div className={"w-full border-2 border-primary  mx-auto max-w-4xl p-3 m-5"}>
+      <div className="flex justify-between border-b-2 mb-2 flex-wrap gap-5 items-center pb-1 border-primary/50">
         <div>{championship.name}</div>
         <div className="ml-auto flex gap-2">
-          {championship.cars.map(car => <div className={"py-1 rounded-full px-3 bg-green-200"}>{car.shorthand}</div>)}
+          {championship.cars.map(car => <div key={`${championship.id}-${car.id}`} className={"py-1 rounded-full px-3 bg-green-200"}>{car.shorthand}</div>)}
         </div>
       </div>
-      <p>Championship info</p>
+      {championship.description && <div className={"prose"} dangerouslySetInnerHTML={{ __html: championship.description }}></div>}
     </div>
   )
 }

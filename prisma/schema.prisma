@@ -75,15 +75,14 @@ model Series {
   Event       Event[]
   hidden      Boolean  @default(false)
   Report      Report[]
-  cars        Car[]
+  cars        Car[]    @relation("SeriesToCar")
 }
 
 model Car {
-  id        Int     @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   name      String
   shorthand String
-  Series    Series? @relation(fields: [seriesId], references: [id])
-  seriesId  Int?
+  Series    Series[] @relation("SeriesToCar")
 }
 
 model Event {
