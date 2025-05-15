@@ -1,11 +1,11 @@
 import React from 'react';
 import {PrismaClient} from "@prisma/client";
-import {currentUser} from "@clerk/nextjs/server";
 import {isAdmin} from "@/utils/admin";
 import Link from "next/link";
 import Image from "next/legacy/image";
 import OurSponsors from "@/app/our-sponsors";
 import prisma from "@/lib/prisma";
+import {auth} from "@/auth";
 
 type leagueProps = {
   params: Promise<{
@@ -23,7 +23,10 @@ const Page = async ({params}: leagueProps) => {
       Series: true,
     },
   })
-  const user = await currentUser()
+  const session = await auth()
+  if (!session){
+    return <div>You must be logged in to view this page</div>}
+  const {user} = session;
 
   return (
     <div className="mx-auto max-w-4xl w-screen p-5">
