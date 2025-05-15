@@ -1,16 +1,14 @@
 import React from 'react';
 import Link from "next/link";
 import SignInWithDiscord from "@/components/sign-in-button";
-import {auth, signIn, signOut} from "@/auth";
+import {auth} from "@/auth";
 import SignOut from "@/components/sign-out";
 import {Menu, MenuButton, MenuItem, MenuItems} from "@headlessui/react";
 import Image from "next/legacy/image";
 import {TiThMenu} from "react-icons/ti";
-import {Form} from "formik";
 
 const Navbar = async () => {
   const session = await auth()
-  console.log(session)
   return (
 
     <div className={"flex justify-between px-10 py-3 items-center"}>
@@ -47,9 +45,6 @@ const Navbar = async () => {
       <div className="flex gap-2 ml-2 items-center">
 
         {session ? <SignOut/> : <SignInWithDiscord/>}
-        <div className="md:hidden">
-          {/*<DropdownNav/>*/}
-        </div>
       </div>
     </div>
   )
