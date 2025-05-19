@@ -21,7 +21,7 @@ const Championship = ({championship}: ChampionshipProps) => {
 
         {championship.sections.map(section => {
           return <div key={`${championship.id} -- ${section.id}`}>
-            <h3 className={"text-2xl text-primary mb-2"}>{section.title}</h3>
+            <h3 className={"text-2xl text-primary mb-2 border-b-2 border-b-primary"}>{section.title}</h3>
             <ol className={"px-3"}>
               {section.content.map((content, index) => <li className={"mb-1"} key={`${championship.id} -- ${section.id} -- ${index}`}>{content}</li>)}
             </ol>
