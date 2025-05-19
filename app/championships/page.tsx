@@ -6,7 +6,8 @@ const Page = async () => {
   const championships = await prisma.series.findMany(
     {
       include: {
-        cars: true
+        cars: true,
+        sections: true
       }
     }
   );

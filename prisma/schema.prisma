@@ -66,16 +66,25 @@ model Admins {
 }
 
 model Series {
-  id          Int      @id @default(autoincrement())
+  id          Int             @id @default(autoincrement())
   name        String
   logo        String
-  league      League   @relation(fields: [leagueId], references: [id])
+  league      League          @relation(fields: [leagueId], references: [id])
   leagueId    Int
   description String?
   Event       Event[]
-  hidden      Boolean  @default(false)
+  hidden      Boolean         @default(false)
   Report      Report[]
-  cars        Car[]    @relation("SeriesToCar")
+  cars        Car[]           @relation("SeriesToCar")
+  sections    SeriesSection[]
+}
+
+model SeriesSection {
+  id       Int      @id @default(autoincrement())
+  title    String
+  content  String[]
+  Series   Series?  @relation(fields: [seriesId], references: [id])
+  seriesId Int?
 }
 
 model Car {

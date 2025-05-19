@@ -1,11 +1,11 @@
 import React from 'react';
 import {Prisma, Series} from "@prisma/client";
 
-type SeriesWIthCars = Prisma.SeriesGetPayload<{
-  include: { cars: true }
+type SeriesWIthCarsAndSections = Prisma.SeriesGetPayload<{
+  include: { cars: true, sections: true }
 }>
 type ChampionshipProps = {
-    championship: SeriesWIthCars
+    championship: SeriesWIthCarsAndSections
 }
 const Championship = ({championship}: ChampionshipProps) => {
   return (
@@ -17,6 +17,17 @@ const Championship = ({championship}: ChampionshipProps) => {
         </div>
       </div>
       {championship.description && <div className={"prose"} dangerouslySetInnerHTML={{ __html: championship.description }}></div>}
+      <div className="md:grid grid-cols-2 gap-5 mt-5">
+
+        {championship.sections.map(section => {
+          return <div key={`${championship.id} -- ${section.id}`}>
+            <h3 className={"text-xl mb-2"}>{section.title}</h3>
+            <ol className={"px-3"}>
+              {section.content.map((content, index) => <li className={"mb-1"} key={`${championship.id} -- ${section.id} -- ${index}`}>{content}</li>)}
+            </ol>
+          </div>
+        })}
+      </div>
     </div>
   )
 }
