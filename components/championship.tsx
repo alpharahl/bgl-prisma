@@ -10,18 +10,18 @@ type ChampionshipProps = {
 }
 const Championship = ({championship}: ChampionshipProps) => {
   return (
-    <div className={"w-full border-2 border-primary  mx-auto max-w-4xl p-3 m-5"}>
-      <div className="flex justify-between border-b-2 mb-2 flex-wrap gap-5 items-center pb-1 border-primary/50">
-        {!championship.headerImage && <div>{championship.name}</div>}
-        {championship.headerImage &&  <div className="relative w-full h-32 md:h-80">
-          <Image src={championship.headerImage} layout={"fill"} objectFit={"contain"} />
+    <div className={`w-full border-2 border-primary  mx-auto max-w-4xl m-5`}>
+      <div className="flex justify-between border-b-2 flex-wrap gap-5 items-center pb-1 border-primary/50">
+        {!championship.headerImage && <div className={"p-3"}>{championship.name}</div>}
+        {championship.headerImage &&  <div className="relative w-full h-32 md:h-[350px]">
+          <Image src={championship.headerImage} layout={"fill"} objectFit={"cover"} />
         </div>}
-        <div className="ml-auto flex gap-2">
-          {championship.cars.map(car => <div key={`${championship.id}-${car.id}`} className={"py-1 rounded-full px-3 bg-green-200"}>{car.shorthand}</div>)}
-        </div>
+        {/*<div className="ml-auto flex gap-2">*/}
+        {/*  {championship.cars.map(car => <div key={`${championship.id}-${car.id}`} className={"py-1 rounded-full px-3 bg-green-200"}>{car.shorthand}</div>)}*/}
+        {/*</div>*/}
       </div>
-      {championship.description && <div className={"prose"} dangerouslySetInnerHTML={{ __html: championship.description }}></div>}
-      <div className="md:grid grid-cols-2 gap-5 mt-5">
+      {championship.description && <div className={"prose p-2"} dangerouslySetInnerHTML={{ __html: championship.description }}></div>}
+      <div className="md:grid grid-cols-2 gap-5 p-2">
 
         {championship.sections.map(section => {
           return <div key={`${championship.id} -- ${section.id}`}>
