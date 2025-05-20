@@ -12,7 +12,7 @@ const Page = async () => {
     }
   );
   return (
-    <div className={"px-5 max-w-[75%] mx-auto"}>{
+    <div className={"px-5 max-w-[75%] bg-transparent mx-auto"}>{
       championships.map(championship => <Championship
         key={championship.id}
         championship={championship}

@@ -18,9 +18,9 @@ const Navbar = async () => {
       </Link>
       <div className={"hidden md:flex ml-auto gap-3 mr-3"}>
         <Link href={"/championships"}
-              className={"hover:text-primary hover:border-b-primary border-b-2"}>Championships</Link>
+              className={"hover:text-primary hover:border-b-primary border-b-2 border-b-transparent "}>Championships</Link>
         <Link href={"https://bwrl-shop.fourthwall.com/"}
-              className={"hover:text-primary hover:border-b-primary border-b-2"}>Store</Link>
+              className={"hover:text-primary hover:border-b-primary border-b-2 border-b-transparent"}>Store</Link>
       </div>
       <Menu>
         <MenuButton>

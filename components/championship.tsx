@@ -10,7 +10,7 @@ type ChampionshipProps = {
 }
 const Championship = ({championship}: ChampionshipProps) => {
   return (
-    <div className={`w-full border-2 border-primary  mx-auto  m-5`}>
+    <div className={`w-full border-2 border-primary  mx-auto bg-primary/70 text-white m-5`}>
       <div className="flex justify-between border-b-2 flex-wrap gap-5 items-center pb-1 border-primary/50">
         {!championship.headerImage && <div className={"p-3"}>{championship.name}</div>}
         {championship.headerImage &&  <div className="relative w-full h-32 md:h-[350px]">
@@ -25,7 +25,7 @@ const Championship = ({championship}: ChampionshipProps) => {
 
         {championship.sections.map(section => {
           return <div key={`${championship.id} -- ${section.id}`}>
-            <h3 className={"text-2xl text-primary mb-2 border-b-2 border-b-primary"}>{section.title}</h3>
+            <h3 className={"text-2xl mb-2 border-b-2 border-b-white"}>{section.title}</h3>
             <ol className={"px-3"}>
               {section.content.map((content, index) => <li className={"mb-1"} key={`${championship.id} -- ${section.id} -- ${index}`}>{content}</li>)}
             </ol>

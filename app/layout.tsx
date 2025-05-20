@@ -1,11 +1,12 @@
 import type {Metadata} from "next";
-import {Geist, Geist_Mono, Comfortaa} from "next/font/google";
+import {Comfortaa, Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/navbar";
 import Footer from "@/app/footer";
+import BG from '@/assets/bg.jpg';
 
 const comfortaa = Comfortaa({
-  subsets: ['latin']
+  subsets: ['latin'],
 })
 
 const geistSans = Geist({
@@ -30,14 +31,20 @@ export default function RootLayout({
 }>) {
   return (
 
-      <html lang="en">
-      <body
-        className={`flex flex-col min-h-screen gap-3  bg-primary/20 ${comfortaa.className}`}
-      >
-        <Navbar/>
-        {children}
-        <Footer />
-      </body>
-      </html>
+    <html lang="en">
+    <body
+      className={`flex flex-col min-h-screen gap-3 min-w-screen ${comfortaa.className}`}
+    >
+    <div className=" fixed inset-0 h-[100%] bg-cover -z-10 opacity-25 bg-fixed bg-no-repeat"
+         style={{backgroundImage: `url(${BG.src})`}}>
+      {/*<Image src={BG.src} layout={"fill"}/>*/}
+    </div>
+    <div className=" inset-0 overscroll-contain">
+      <Navbar/>
+      {children}
+      <Footer/>
+    </div>
+    </body>
+    </html>
   );
 }

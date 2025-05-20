@@ -5,7 +5,7 @@ import Cars from "@/assets/bwrl-cars.avif";
 
 export default async function Home(): Promise<ReactNode> {
   return (
-    <div className="relative min-h-[600px] ">
+    <div className="min-h-[600px] ">
 
       <main className="flex flex-col gap-8 row-start-2 w-full max-w-4xl mx-auto mt-20 px-10">
         <h1 className={" text-4xl"}>Broken Wing Racing League</h1>
@@ -15,9 +15,6 @@ export default async function Home(): Promise<ReactNode> {
         </div>
       </main>
 
-      <div className="inset-0 absolute -z-10 opacity-40">
-        <Image src={Cars.src} layout={"fill"} objectFit={"cover"}/>
-      </div>
     </div>
   );
 }
