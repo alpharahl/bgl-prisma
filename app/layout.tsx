@@ -37,9 +37,8 @@ export default function RootLayout({
     >
     <div className=" fixed inset-0 h-[100%] bg-cover -z-10 opacity-25 bg-fixed bg-no-repeat"
          style={{backgroundImage: `url(${BG.src})`}}>
-      {/*<Image src={BG.src} layout={"fill"}/>*/}
     </div>
-    <div className=" inset-0 overscroll-contain">
+    <div className="bg-primary/20 inset-0 overscroll-contain">
       <Navbar/>
       {children}
       <Footer/>
