@@ -12,7 +12,7 @@ const Page = async () => {
     }
   );
   return (
-    <div className={"px-5 max-w-4xl mx-auto"}>{
+    <div className={"px-5 max-w-[75%] mx-auto"}>{
       championships.map(championship => <Championship
         key={championship.id}
         championship={championship}
