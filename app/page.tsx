@@ -6,7 +6,6 @@ import {auth} from "@/auth";
 
 export default async function Home(): Promise<ReactNode> {
   const session = await auth();
-  console.log(session);
   return (
     <div className="min-h-[600px] ">
       <main className="flex flex-col gap-8 row-start-2 w-full max-w-4xl mx-auto mt-20 px-10">
