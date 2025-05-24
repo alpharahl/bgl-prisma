@@ -61,12 +61,20 @@ const Championship = ({championship}: ChampionshipProps) => {
               >
 
                 <h3
-                  className={"text-2xl text-orange-300 font-bold mb-2 border-b-2 border-b-orange-300"}>{section.title}</h3>
+                  className={"text-2xl text-left text-orange-300 font-bold mb-2 border-b-2 border-b-orange-300"}>{section.title}</h3>
               </EditableText>
-              <ol className={"px-3"}>
-                {section.content.map((content, index) => <li className={"mb-1"}
-                                                             key={`${championship.id} -- ${section.id} -- ${index}`}>{content}</li>)}
-              </ol>
+              <EditableText
+                targetObject={{content: section.content}}
+                updateFn={editSection}
+                targetKey={'content'}
+                formType={"array"}
+              >
+                <ol className={"px-3"}>
+                  {section.content.map((content, index) => <li className={"mb-1 text-left"}
+                                                               key={`${championship.id} -- ${section.id} -- ${index}`}>{content}</li>)}
+                </ol>
+
+              </EditableText>
             </div>
           })}
         </div>
