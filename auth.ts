@@ -1,7 +1,5 @@
 import NextAuth from "next-auth"
 import Discord from "@auth/core/providers/discord";
-import prisma from "@/lib/prisma";
-
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -23,8 +21,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           name: profile.global_name ?? profile.username,
           email: profile.email,
           image: profile.image_url,
-          discordId: profile.id,
-          discordUserName: profile.username,
+          customData: {
+            discordId: profile.id,
+            discordUserName: profile.username
+          }
         }
       },
       authorization: {
@@ -37,19 +37,23 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
   callbacks: {
     async jwt({ token, user, account, profile, isNewUser }) {
-      if (user){
-        token.customData = user;
-        if (!user.email){
+      if (user) {
+        if (!user.email) {
           throw new Error("Invalid User Account");
         }
+
+        token.customData = {
+          discordId: user.customData.discordId,
+          discordUserName: user.customData.discordUserName,
+        };
       }
 
       return token;
     },
     session: ({ session, token }) => {
       // console.log("session info", session, token)
-      // @ts-ignore
-      session.userId = token.customData?.discordId;
+      session.user.discordId = token.customData?.discordId;
+      session.user.discordUserName = token.customData?.discordUserName;
 
       return session;
     },
