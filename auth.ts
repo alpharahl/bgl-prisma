@@ -1,5 +1,7 @@
 import NextAuth from "next-auth"
 import Discord from "@auth/core/providers/discord";
+import prisma from "@/lib/prisma";
+
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -15,6 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           const format = profile.avatar.startsWith("a_") ? "gif" : "png"
           profile.image_url = `https://cdn.discordapp.com/avatars/${profile.id}/${profile.avatar}.${format}`
         }
+
         return {
           id: profile.id,
           name: profile.global_name ?? profile.username,
@@ -36,14 +39,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user, account, profile, isNewUser }) {
       if (user){
         token.customData = user;
+        if (!user.email){
+          throw new Error("Invalid User Account");
+        }
       }
+
       return token;
     },
     session: ({ session, token }) => {
       // console.log("session info", session, token)
-
-      // @ts-ignore
-      session.customData = token.customData;
+      session.userId = token.customData?.discordId;
+      
       return session;
     },
   }

@@ -1,18 +1,8 @@
-// 'use server'
-// lib/prisma.js
-
 import { PrismaClient } from '@prisma/client'
+import { PrismaNeon } from '@prisma/adapter-neon'
 
-let prisma: PrismaClient
-  prisma = new PrismaClient()
+const connectionString = `${process.env.DATABASE_URL}`
 
-// if (process.env.NODE_ENV === 'production') {
-//   prisma = new PrismaClient()
-// } else {
-//   if (!global.prisma) {
-//     global.prisma = new PrismaClient()
-//   }
-//   prisma = global.prisma
-// }
-
-export default prisma
+const adapter = new PrismaNeon({ connectionString })
+const prisma = new PrismaClient({ adapter })
+export default prisma;
