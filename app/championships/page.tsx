@@ -8,6 +8,9 @@ const Page = async () => {
       include: {
         cars: true,
         sections: true
+      },
+      orderBy: {
+        order: 'asc',
       }
     }
   );

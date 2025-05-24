@@ -35,6 +35,15 @@ const Championship = ({championship}: ChampionshipProps) => {
           <EditableText targetObject={{name: championship.name}} updateFn={editChampionship} targetKey={'name'}>
             <h2 className={"text-2xl md:text-6xl text-orange-400"}>{championship.name}</h2>
           </EditableText>
+          <EditableText
+            targetObject={{order: championship.order}}
+            updateFn={editChampionship}
+            targetKey={'order'}
+            formType={"number"}
+            classes={"absolute top-0 right-0 w-20 h-20"}
+          >
+            <div className={"absolute"}></div>
+          </EditableText>
 
         </div>
         <div className="md:grid grid-cols-2 gap-5 p-2">
