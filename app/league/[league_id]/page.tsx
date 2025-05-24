@@ -1,6 +1,6 @@
 import React from 'react';
 import {PrismaClient} from "@prisma/client";
-import {isAdmin} from "@/utils/admin";
+// import {isAdmin} from "@/utils/admin";
 import Link from "next/link";
 import Image from "next/legacy/image";
 import OurSponsors from "@/app/our-sponsors";
@@ -41,7 +41,7 @@ const Page = async ({params}: leagueProps) => {
       </div>
       <div className="flex gap-5 items-center">
         <h2 className={"text-2xl"}>Active Series</h2>
-        {(await isAdmin()) && <Link className={"border-2 border-l-orange-600 px-2 rounded-sm  hover:border-slate-300 hover:bg-slate-50 transition-colors duration-200"} href={`/series/new?league_id=${league_id}`}>Add Series</Link>}
+        {/*{(await isAdmin()) && <Link className={"border-2 border-l-orange-600 px-2 rounded-sm  hover:border-slate-300 hover:bg-slate-50 transition-colors duration-200"} href={`/series/new?league_id=${league_id}`}>Add Series</Link>}*/}
       </div>
       <div className="flex flex-wrap gap-3 p-5">
         {league.Series?.map(series => {

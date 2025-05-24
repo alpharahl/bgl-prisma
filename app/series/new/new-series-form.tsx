@@ -17,7 +17,7 @@ const newSeriesForm = ({league}: { league: League }) => {
       onSubmit={async (values) => {
         const series = await createNewSeries(values)
         console.log("series created", series)
-        router.push(`/series/${series?.id}`)
+        // router.push(`/series/${series?.id}`)
       }}
     >
       <Form className={"flex flex-col gap-5"}>

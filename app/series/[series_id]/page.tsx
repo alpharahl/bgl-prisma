@@ -1,6 +1,4 @@
 import React from 'react';
-import {PrismaClient} from "@prisma/client";
-import {isAdmin} from "@/utils/admin";
 import Admin from "@/app/series/[series_id]/admin";
 import Image from "next/legacy/image";
 import Link from "next/link";
@@ -40,7 +38,7 @@ const Page = async ({params}: seriesProps) => {
       <div>
         <div className="flex justify-between max-w-lg mx-auto items-center">
           <h2 className={"text-xl"}>Upcoming Events</h2>
-          {(await isAdmin()) && <Link href={`/event/new/${series.id}`} className={"border-l-2 pl-3 border-l-orange-600 hover:bg-orange-200 p-2 rounded-md"}>Add Event</Link> }
+          {/*{(await isAdmin()) && <Link href={`/event/new/${series.id}`} className={"border-l-2 pl-3 border-l-orange-600 hover:bg-orange-200 p-2 rounded-md"}>Add Event</Link> }*/}
         </div>
         <div className="flex max-w-xs w-full flex-col gap-2 mx-auto">
           {series.Event.map(event => (
@@ -56,7 +54,7 @@ const Page = async ({params}: seriesProps) => {
         </div>
       </div>
       <div className="flex items-center justify-between">
-        {(await isAdmin()) && <Admin series={series}/>}
+        {/*{(await isAdmin()) && <Admin series={series}/>}*/}
       </div>
     </div>
   );

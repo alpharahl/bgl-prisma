@@ -1,6 +1,6 @@
 import React from 'react';
 import {PrismaClient} from "@prisma/client";
-import {isAdmin} from "@/utils/admin";
+// import {isAdmin} from "@/utils/admin";
 import SeriesEdit from "@/app/series/edit/[series_id]/series-edit";
 import prisma from "@/lib/prisma";
 

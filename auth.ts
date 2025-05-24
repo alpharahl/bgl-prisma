@@ -48,8 +48,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     session: ({ session, token }) => {
       // console.log("session info", session, token)
+      // @ts-ignore
       session.userId = token.customData?.discordId;
-      
+
       return session;
     },
   }
