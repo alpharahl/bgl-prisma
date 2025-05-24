@@ -8,6 +8,7 @@ declare module "next-auth" {
       id: string;
       discordId: string;
       discordUserName: string;
+      admin: boolean;
     } & DefaultSession["user"];
   }
 
@@ -24,6 +25,7 @@ declare module "@auth/core/jwt" {
     customData: {
       discordId: string;
       discordUserName: string;
+      admin: boolean;
     } & DefaultJWT
   }
 }

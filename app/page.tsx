@@ -9,8 +9,6 @@ import isAdmin from "@/lib/isAdmin";
 
 export default async function Home(): Promise<ReactNode> {
   const session = await auth();
-  const admin = await isAdmin(session);
-  console.log(session, 'admin', admin);
   // const member = await getMember(session?.customData.discordId);
   return (
     <div className="min-h-[600px] ">

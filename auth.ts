@@ -1,5 +1,7 @@
 import NextAuth from "next-auth"
 import Discord from "@auth/core/providers/discord";
+import axios from "@/lib/axios";
+import getMember from "@/lib/discord/api/guild/get-member";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
@@ -42,9 +44,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           throw new Error("Invalid User Account");
         }
 
+        const member = await getMember(user.customData.discordId)
+        const admin = !!member?.roles?.includes(process.env.WEB_ROLE_ID)
         token.customData = {
           discordId: user.customData.discordId,
           discordUserName: user.customData.discordUserName,
+          admin,
         };
       }
 
@@ -54,7 +59,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // console.log("session info", session, token)
       session.user.discordId = token.customData?.discordId;
       session.user.discordUserName = token.customData?.discordUserName;
-
+      session.user.admin = token.customData?.admin;
       return session;
     },
   }
