@@ -24,7 +24,7 @@ const AddPenalty = ({
       <Form className="flex gap-2 w-full items-center">
         <div>
           <div>Code</div>
-          <Field name={"code"} type={"decimal"} className={inputClass}/>
+          <Field name={"code"} type={"number"} steps={2} className={inputClass}/>
         </div>
         <div>
           <div>Points</div>
