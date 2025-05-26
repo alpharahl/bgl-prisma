@@ -67,6 +67,14 @@ model SeriesSection {
   order    Int      @default(10)
 }
 
+model Penalty {
+  id          Int    @id @default(autoincrement())
+  code        Float
+  name        String
+  description String
+  points      Int
+}
+
 model Car {
   id        Int      @id @default(autoincrement())
   name      String

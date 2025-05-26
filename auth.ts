@@ -56,7 +56,6 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       return token;
     },
     session: ({ session, token }) => {
-      // console.log("session info", session, token)
       session.user.discordId = token.customData?.discordId;
       session.user.discordUserName = token.customData?.discordUserName;
       session.user.admin = token.customData?.admin;

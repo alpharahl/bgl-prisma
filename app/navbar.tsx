@@ -9,6 +9,7 @@ import {TiThMenu} from "react-icons/ti";
 
 const Navbar = async () => {
   const session = await auth()
+  const linkClasses = "hover:text-primary hover:border-b-primary border-b-2 border-b-transparent"
   return (
 
     <div className={"flex justify-between px-10 py-3 items-center"}>
@@ -18,9 +19,10 @@ const Navbar = async () => {
       </Link>
       <div className={"hidden md:flex ml-auto gap-3 mr-3"}>
         <Link href={"/championships"}
-              className={"hover:text-primary hover:border-b-primary border-b-2 border-b-transparent "}>Championships</Link>
+              className={linkClasses}>Championships</Link>
         <Link href={"https://bwrl-shop.fourthwall.com/"}
-              className={"hover:text-primary hover:border-b-primary border-b-2 border-b-transparent"}>Store</Link>
+              className={linkClasses}>Store</Link>
+        {session?.user?.admin && <Link href={"/admin/penalty"} className={linkClasses}>Penalties</Link>}
       </div>
       <Menu>
         <MenuButton>

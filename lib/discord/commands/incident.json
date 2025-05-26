@@ -1,0 +1,5 @@
+{
+    "name": "incident",
+    "type": 2,
+    "description": "Report a race incident. Provide a link to the video of the incident, and describe it."
+}
