@@ -9,10 +9,8 @@ const Page = async () => {
     }
   });
   return (
-    <div className={"max-w-4xl mx-auto w-full flex flex-col gap-5"}>
-      {series.map(s =>
-        <NewReportForm series={s}/>
-      )}
+    <div className={"max-w-4xl mx-auto w-full flex flex-col gap-5 min-h-screen"}>
+      <NewReportForm series={series}/>
     </div>
   )
 }

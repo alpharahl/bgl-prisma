@@ -23,6 +23,7 @@ const Navbar = async () => {
         <Link href={"https://bwrl-shop.fourthwall.com/"}
               className={linkClasses}>Store</Link>
         {session?.user?.admin && <Link href={"/admin/penalty"} className={linkClasses}>Penalties</Link>}
+        {session?.user && <Link href="/report/new" className={linkClasses}>Report</Link>}
       </div>
       <Menu>
         <MenuButton>
