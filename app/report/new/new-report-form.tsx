@@ -2,6 +2,7 @@
 import React, {useState} from 'react';
 import {Prisma} from '@prisma/client';
 import {Field, Form, Formik} from "formik";
+import {classifyReport} from "@/actions/penalty";
 
 type newReportFormProps = {
   series: SeriesWithEvents[];
@@ -32,7 +33,7 @@ const newReportForm = ({series}: newReportFormProps) => {
             link: ""
           }}
           onSubmit={async (values) => {
-            console.log(values);
+            await classifyReport({...values, series: selectedSeries} );
           }
         }
         >

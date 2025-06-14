@@ -56,6 +56,8 @@ model Series {
   sections    SeriesSection[]
   headerImage String?
   order       Int             @default(10)
+  Report      Report[]
+  reportTag   String?
 }
 
 model SeriesSection {
@@ -73,6 +75,18 @@ model Penalty {
   name        String
   description String
   points      Int
+}
+
+model Report {
+  id                   Int     @id @default(autoincrement())
+  description          String
+  offendingDriver      String
+  reportingDriver      String
+  link                 String
+  processedDescription String?
+  series               Series  @relation(fields: [seriesId], references: [id])
+  message              String
+  seriesId             Int
 }
 
 model Car {
