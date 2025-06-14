@@ -41,7 +41,7 @@ export const classifyReport = async ({
   'use server'
   const session = await auth()
   if (!session){return}
-  const reportMessage = await postDiscordMessage(series, ` @${session.user.discordId} vs ${offendingDriver}`)
+  const reportMessage = await postDiscordMessage(series, `New ${series.name} Report`)
   const report = await prisma.report.create({
     data: {
       description,
