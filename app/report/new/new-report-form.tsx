@@ -70,11 +70,6 @@ const newReportForm = ({series}: newReportFormProps) => {
               <Field name={"link"} required className={"w-full p-2 rounded-md"}/>
             </div>
             <div>
-              <div className="text-lg">Your Car Number</div>
-              <Field name={"carNumber"} required className={"w-full p-2 rounded-md"}/>
-            </div>
-
-            <div>
               <button type={"submit"} className={"bg-primary text-white px-3 py-2 rounded-md"} disabled={submitting}>Submit</button>
             </div>
           </Form>
