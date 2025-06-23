@@ -12,7 +12,7 @@ type classifyReportProps = {
   series: Series,
   carNumber: string,
   round: string,
-  offendingDriverCarNumber: "",
+  offendingDriverCarNumber: string,
 }
 
 const postDiscordMessage = async (series: Series, message: string) => {
