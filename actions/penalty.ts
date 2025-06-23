@@ -142,7 +142,7 @@ export const classifyReport = async ({
       `Penalty: ${parsedData.penaltyCode} - ${parsedData.incidentType}`,
       `Points: ${parsedData.penaltyPoints}`,
       `Offending Driver: ${offendingDriverCarNumber} - ${parsedData.offendingDriver}`,
-      `Reporting Driver: ${carNumber} - @${session.user.discordUserName}`,
+      `Reporting Driver: ${carNumber} - <@${session.user.discordId}>`,
       `Link: ${link}`
     ].join("\n")
 
