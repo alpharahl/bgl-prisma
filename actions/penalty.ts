@@ -15,9 +15,9 @@ type classifyReportProps = {
   offendingDriverCarNumber: string,
 }
 
-const postDiscordMessage = async (series: Series, message: string) => {
+const postDiscordMessage = async (series: Series, message: string, round: string, reportingDriver: string, offendingDriver: string) => {
   const data = {
-        name: series.name,
+        name: `${series.name} ${round}: <@${reportingDriver}> reports ${offendingDriver}`,
         message: {
           content: message
         },
@@ -47,7 +47,7 @@ export const classifyReport = async ({
   'use server'
   const session = await auth()
   if (!session){return}
-  const reportMessage = await postDiscordMessage(series, `New ${series.name} Report - ${round}`)
+  const reportMessage = await postDiscordMessage(series, `New ${series.name} Report - ${round}`, round, session.user.discordId, offendingDriver)
   const report = await prisma.report.create({
     data: {
       description,
