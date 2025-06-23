@@ -13,6 +13,7 @@ type SeriesWithEvents = Prisma.SeriesGetPayload<{
 }>
 const newReportForm = ({series}: newReportFormProps) => {
   const [selectedSeries, setSelectedSeries] = useState<SeriesWithEvents>();
+  const [submitting, setSubmitting] = useState<boolean>(false);
   return (
     <div>
       <div>
@@ -30,28 +31,51 @@ const newReportForm = ({series}: newReportFormProps) => {
           initialValues={{
             description: "",
             offendingDriver: "",
-            link: ""
+            carNumber: "",
+            offendingDriverCarNumber: "",
+            link: "",
+            round: ""
           }}
-          onSubmit={async (values) => {
+          onSubmit={async (values, {resetForm}) => {
+            setSubmitting(true);
             await classifyReport({...values, series: selectedSeries} );
+            resetForm()
+            setSubmitting(false);
           }
         }
         >
           <Form className={"w-full mt-10 flex flex-col gap-3"}>
             <div>
+              <div className="text-lg">Round</div>
+              <Field name={"round"} required className={"w-full p-2 rounded-md"}/>
+            </div>
+            <div>
               <div className={"text-lg"}>Describe the incident</div>
               <Field name={"description"} as={"textarea"} required className={"w-full p-2 rounded-md"} rows={6}/>
             </div>
             <div>
-              <div className={"text-lg"}>Involved drivers</div>
+              <div className={"text-lg"}>Offending driver</div>
               <Field name={"offendingDriver"} required className={"w-full p-2 rounded-md"}/>
+            </div>
+            <div>
+              <div className="text-lg">Offending Driver's Car Number</div>
+              <Field name={"offendingDriverCarNumber"} required className={"w-full p-2 rounded-md"}/>
+            </div>
+            <div>
+              <div className="text-lg">Your Car Number</div>
+              <Field name={"carNumber"} required className={"w-full p-2 rounded-md"}/>
             </div>
             <div>
               <div className={"text-lg"}>Video Link</div>
               <Field name={"link"} required className={"w-full p-2 rounded-md"}/>
             </div>
             <div>
-              <button type={"submit"} className={"bg-primary text-white px-3 py-2 rounded-md"}>Submit</button>
+              <div className="text-lg">Your Car Number</div>
+              <Field name={"carNumber"} required className={"w-full p-2 rounded-md"}/>
+            </div>
+
+            <div>
+              <button type={"submit"} className={"bg-primary text-white px-3 py-2 rounded-md"} disabled={submitting}>Submit</button>
             </div>
           </Form>
         </Formik>}

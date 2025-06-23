@@ -9,7 +9,10 @@ type classifyReportProps = {
   description: string,
   offendingDriver: string,
   link: string,
-  series: Series
+  series: Series,
+  carNumber: string,
+  round: string,
+  offendingDriverCarNumber: "",
 }
 
 const postDiscordMessage = async (series: Series, message: string) => {
@@ -35,13 +38,16 @@ const postDiscordMessage = async (series: Series, message: string) => {
 export const classifyReport = async ({
   description,
   offendingDriver,
+  offendingDriverCarNumber,
+  carNumber,
+  round,
   link,
   series
 }: classifyReportProps) => {
   'use server'
   const session = await auth()
   if (!session){return}
-  const reportMessage = await postDiscordMessage(series, `New ${series.name} Report`)
+  const reportMessage = await postDiscordMessage(series, `New ${series.name} Report - ${round}`)
   const report = await prisma.report.create({
     data: {
       description,
@@ -69,7 +75,7 @@ export const classifyReport = async ({
             text: "Classify the incident and place the related code in the penalty code."
           },
           {
-            text: `The offending driver is ${offendingDriver}`,
+            text: `The offending driver(s) is(are) ${offendingDriver}`,
           },
           {
             text: `The reporting driver is ${session?.user.discordId}`
@@ -131,7 +137,14 @@ export const classifyReport = async ({
         processedDescription: JSON.stringify(parsedData)
       }
     })
-    const messageToSend = `Report: ${parsedData.incidentDescription}\nPenalty: ${parsedData.penaltyCode} - ${parsedData.incidentType}\nPoints: ${parsedData.penaltyPoints}\nOffending Driver: ${parsedData.offendingDriver}\nLink: ${link}`
+    const messageToSend = [
+      `Report: ${parsedData.incidentDescription}`,
+      `Penalty: ${parsedData.penaltyCode} - ${parsedData.incidentType}`,
+      `Points: ${parsedData.penaltyPoints}`,
+      `Offending Driver: ${offendingDriverCarNumber} - ${parsedData.offendingDriver}`,
+      `Reporting Driver: ${carNumber} - @${session.user.discordUserName}`,
+      `Link: ${link}`
+    ].join("\n")
 
 
     await axios({
