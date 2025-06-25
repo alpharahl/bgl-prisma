@@ -17,7 +17,7 @@ type classifyReportProps = {
 
 const postDiscordMessage = async (series: Series, message: string, round: string, reportingDriver: string, offendingDriver: string) => {
   const data = {
-        name: `${series.name} ${round}: <@${reportingDriver}> reports ${offendingDriver}`,
+        name: `${series.name} R${round}:  reports ${offendingDriver}`,
         message: {
           content: message
         },
@@ -138,7 +138,7 @@ export const classifyReport = async ({
       }
     })
     const messageToSend = [
-      `Report: ${parsedData.incidentDescription}`,
+      `Report: ${description}`,
       `Penalty: ${parsedData.penaltyCode} - ${parsedData.incidentType}`,
       `Points: ${parsedData.penaltyPoints}`,
       `Offending Driver: ${offendingDriverCarNumber} - ${parsedData.offendingDriver}`,

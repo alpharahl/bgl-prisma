@@ -46,8 +46,8 @@ const newReportForm = ({series}: newReportFormProps) => {
         >
           <Form className={"w-full mt-10 flex flex-col gap-3"}>
             <div>
-              <div className="text-lg">Round</div>
-              <Field name={"round"} required className={"w-full p-2 rounded-md"}/>
+              <div className="text-lg">Round Number</div>
+              <Field name={"round"} type="number" required className={"w-full p-2 rounded-md"}/>
             </div>
             <div>
               <div className={"text-lg"}>Describe the incident</div>
