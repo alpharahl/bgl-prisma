@@ -143,7 +143,8 @@ export const classifyReport = async ({
       `Points: ${parsedData.penaltyPoints}`,
       `Offending Driver: ${offendingDriverCarNumber} - ${parsedData.offendingDriver}`,
       `Reporting Driver: ${carNumber} - <@${session.user.discordId}>`,
-      `Link: ${link}`
+      `Link: ${link}`,
+      `View Report: ${process.env.NEXT_PUBLIC_BASE_URL}/reports/${report.id}`
     ].join("\n")
 
 
