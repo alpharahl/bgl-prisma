@@ -73,3 +73,23 @@ export async function addSection({ seriesId, title, content }: {
   
   return section;
 }
+
+export async function deleteChampionship({ id }: { id: number }) {
+  if (!(await isAdmin())) {
+    throw new Error("Unauthorized");
+  }
+
+  // First delete all sections
+  await prisma.seriesSection.deleteMany({
+    where: {
+      seriesId: id
+    }
+  });
+
+  // Then delete the championship
+  await prisma.series.delete({
+    where: { id }
+  });
+
+  revalidatePath('/championships');
+}
