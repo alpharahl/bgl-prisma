@@ -80,10 +80,6 @@ export default async function ReportPage(props: PageProps) {
                         
                         <div>
                             <h2 className="text-lg font-semibold mb-4">Description</h2>
-                            <div>
-                                <h3 className="text-md font-semibold mb-2">Message</h3>
-                                <p className="text-gray-800 whitespace-pre-wrap">{report.message}</p>
-                            </div>
                             
                             <div className="mt-4">
                                 <h3 className="text-md font-semibold mb-2">Description</h3>

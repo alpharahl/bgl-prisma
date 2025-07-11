@@ -60,9 +60,6 @@ export default async function ReportsPage() {
                                                     {report.status.replace('_', ' ')}
                                                 </span>
                                             )}
-                                            <span className="text-gray-600 text-sm">
-                                                From: {report.reportingDriver}
-                                            </span>
                                             <span className="text-gray-600 text-sm hidden sm:inline">•</span>
                                             {report.series && (
                                                 <span className="text-gray-600 text-sm">
@@ -70,11 +67,6 @@ export default async function ReportsPage() {
                                                 </span>
                                             )}
                                         </div>
-                                        {report.message && (
-                                            <p className="text-gray-500 text-sm line-clamp-2">
-                                                {report.message}
-                                            </p>
-                                        )}
                                     </div>
                                 </div>
                             </Link>

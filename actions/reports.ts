@@ -32,6 +32,9 @@ export async function getUserReports() {
                 processedDescription: true,
                 message: true
             } : {})
+        },
+        orderBy: {
+            id: 'desc'
         }
     });
 
