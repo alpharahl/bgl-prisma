@@ -4,10 +4,9 @@ import Link from 'next/link';
 import { auth } from "@/auth";
 import isAdmin from "@/lib/isAdmin";
 
-type SeriesWIthCarsAndSections = Prisma.SeriesGetPayload<{
+type SeriesWithCarsAndSections = Prisma.SeriesGetPayload<{
   include: { cars: true, sections: true }
-}>
-
+}>;
 
 interface ChampionshipProps {
   championship: SeriesWithCarsAndSections;
@@ -52,8 +51,4 @@ const Championship = ({championship, isAdmin}: ChampionshipProps) => {
     </div>
   )
 }
-type ChampionshipProps = {
-  championship: SeriesWIthCarsAndSections
-}
-
 export default Championship

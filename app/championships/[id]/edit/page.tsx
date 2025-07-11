@@ -12,7 +12,8 @@ interface Props {
   };
 }
 
-export default async function ChampionshipEditPage({ params }: Props) {
+export default async function ChampionshipEditPage({ params: paramsPromise }: { params: Promise<Props['params']> }) {
+  const params = await paramsPromise;
   const session = await auth();
   if (!session || !(await isAdmin())) {
     redirect("/");
