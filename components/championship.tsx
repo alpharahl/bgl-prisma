@@ -1,94 +1,55 @@
 import React from 'react';
 import {Prisma} from "@prisma/client";
-import EditableText from "@/components/admin/editable-text";
-import {SessionProvider} from "next-auth/react";
+import Link from 'next/link';
+import { auth } from "@/auth";
 import isAdmin from "@/lib/isAdmin";
-import prisma from "@/lib/prisma";
 
 type SeriesWIthCarsAndSections = Prisma.SeriesGetPayload<{
   include: { cars: true, sections: true }
 }>
 
 
-const Championship = ({championship}: ChampionshipProps) => {
-  const editChampionship = async (values: any) => {
-    'use server'
-    const admin = await isAdmin();
-    if (await isAdmin()) {
-      console.log('running save')
-      await prisma.series.update({
-        where: {
-          id: championship.id,
-        },
-        data: values,
-      })
-    }
-  }
-  return (
-    <SessionProvider>
+interface ChampionshipProps {
+  championship: SeriesWithCarsAndSections;
+  isAdmin?: boolean;
+}
 
-      <div className={`w-full border-2 border-primary  mx-auto bg-primary/70 text-white m-5`}>
-        <div
+const Championship = ({championship, isAdmin}: ChampionshipProps) => {
+  return (
+    <div className={`w-full border-2 border-primary mx-auto bg-primary/70 text-white m-5`}>        <div
           className={`w-full h-36 relative p-3 bg-repeat bg-[url(/assets/twill.png)] flex justify-center items-center`}
         >
-
-          <EditableText targetObject={{name: championship.name}} updateFn={editChampionship} targetKey={'name'}>
-            <h2 className={"text-2xl md:text-6xl text-orange-400"}>{championship.name}</h2>
-          </EditableText>
-          <EditableText
-            targetObject={{order: championship.order}}
-            updateFn={editChampionship}
-            targetKey={'order'}
-            formType={"number"}
-            classes={"absolute top-0 right-0 w-20 h-20"}
-          >
-            <div className={"absolute"}></div>
-          </EditableText>
-
+          <h2 className={"text-2xl md:text-6xl text-orange-400"}>{championship.name}</h2>
+          {isAdmin && (
+            <Link
+              href={`/championships/${championship.id}/edit`}
+              className="absolute top-2 right-2 px-3 py-1 bg-orange-500 text-white rounded hover:bg-orange-600 transition flex items-center gap-1 text-sm"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
+              </svg>
+              Edit
+            </Link>
+          )}
         </div>
-        <div className="md:grid grid-cols-2 gap-5 p-2">
-
-          {championship.sections.map(section => {
-            const editSection = async (values: any) => {
-              'use server'
-              const admin = await isAdmin();
-              if (await isAdmin()) {
-                console.log('running save')
-                await prisma.seriesSection.update({
-                  where: {
-                    id: section.id,
-                  },
-                  data: values,
-                })
-              }
-            }
-            return <div key={`${championship.id} -- ${section.id}`}>
-              <EditableText
-                targetObject={{title: section.title}}
-                updateFn={editSection}
-                targetKey={'title'}
-              >
-
-                <h3
-                  className={"text-2xl text-left text-orange-300 font-bold mb-2 border-b-2 border-b-orange-300"}>{section.title}</h3>
-              </EditableText>
-              <EditableText
-                targetObject={{content: section.content}}
-                updateFn={editSection}
-                targetKey={'content'}
-                formType={"array"}
-              >
-                <ol className={"px-3"}>
-                  {section.content.map((content, index) => <li className={"mb-1 text-left"}
-                                                               key={`${championship.id} -- ${section.id} -- ${index}`}>{content}</li>)}
-                </ol>
-
-              </EditableText>
-            </div>
-          })}
-        </div>
+      <div className="md:grid grid-cols-2 gap-5 p-2">
+        {championship.sections.map(section => (
+          <div key={`${championship.id} -- ${section.id}`}>
+            <h3 className={"text-2xl text-left text-orange-300 font-bold mb-2 border-b-2 border-b-orange-300"}>
+              {section.title}
+            </h3>
+            <ol className={"px-3"}>
+              {section.content.map((content, index) => (
+                <li className={"mb-1 text-left"} key={`${championship.id} -- ${section.id} -- ${index}`}>
+                  {content}
+                </li>
+              ))}
+            </ol>
+          </div>
+        ))}
       </div>
-    </SessionProvider>
+    </div>
   )
 }
 type ChampionshipProps = {

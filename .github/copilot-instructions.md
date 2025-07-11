@@ -18,3 +18,5 @@ The <main> section must have a min-h-screen class to ensure it's tall enough to 
 We componentize aggressively, and we keep files in their app folder. For instance a client form would exist alongside the server rendered page.tsx file.
 
 We have a way to determine if someone is an admin with the isAdmin file in the lib folder.
+
+We use formik and yup for forms and validation.
