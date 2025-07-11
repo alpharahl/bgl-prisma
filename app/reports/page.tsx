@@ -41,12 +41,24 @@ export default async function ReportsPage() {
                                 className="bg-white shadow rounded-lg p-4 border border-gray-200"
                             >
                                 <div className="flex justify-between items-start mb-2">
-                                    <h2 className="text-lg font-semibold">
-                                        Report against {report.offendingDriver}
-                                    </h2>
-                                    <span className="text-sm text-gray-500">
-                                        Series: {report.series.name}
-                                    </span>
+                                    <div>
+                                        <h2 className="text-lg font-semibold">
+                                            Report against {report.offendingDriver}
+                                        </h2>
+                                        <div className="flex items-center gap-2 mt-1">
+                                            <span className={`text-sm px-2 py-1 rounded ${
+                                                report.status === 'IN_REVIEW' ? 'bg-yellow-100 text-yellow-800' :
+                                                report.status === 'PENALTY_ASSIGNED' ? 'bg-red-100 text-red-800' :
+                                                report.status === 'UNDER_APPEAL' ? 'bg-purple-100 text-purple-800' :
+                                                'bg-gray-100 text-gray-800'
+                                            }`}>
+                                                {report.status.replace(/_/g, ' ')}
+                                            </span>
+                                            <span className="text-sm text-gray-500">
+                                                Series: {report.series.name}
+                                            </span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <p className="text-gray-700 mb-2">{report.description}</p>
                                 <div className="mt-3">

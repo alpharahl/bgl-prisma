@@ -22,6 +22,7 @@ export async function getUserReports() {
             reportingDriver: true,
             link: true,
             seriesId: true,
+            status: true,
             series: {
                 select: {
                     name: true

@@ -77,16 +77,24 @@ model Penalty {
   points      Int
 }
 
+enum ReportStatus {
+  IN_REVIEW
+  PENALTY_ASSIGNED
+  UNDER_APPEAL
+  NO_FURTHER_ACTION
+}
+
 model Report {
-  id                   Int     @id @default(autoincrement())
+  id                   Int          @id @default(autoincrement())
   description          String
   offendingDriver      String
   reportingDriver      String
   link                 String
   processedDescription String?
-  series               Series  @relation(fields: [seriesId], references: [id])
+  series               Series       @relation(fields: [seriesId], references: [id])
   message              String
   seriesId             Int
+  status              ReportStatus @default(IN_REVIEW)
 }
 
 model Car {
