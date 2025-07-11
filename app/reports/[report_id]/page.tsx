@@ -1,6 +1,8 @@
 import { auth } from "@/auth";
+import isAdmin from "@/lib/isAdmin";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import StatusSelector from "./status-selector";
 
 interface PageProps {
     params: Promise<{ report_id: string }>;
@@ -9,6 +11,7 @@ interface PageProps {
 export default async function ReportPage(props: PageProps) {
     const params = await props.params;
     const session = await auth();
+    const admin = await isAdmin();
     
     if (!session?.user) {
         return (
@@ -25,7 +28,13 @@ export default async function ReportPage(props: PageProps) {
         where: {
             id: parseInt(params.report_id.toString()),
         },
-        include: {
+        select: {
+            id: true,
+            status: true,
+            offendingDriver: true,
+            description: true,
+            message: true,
+            link: true,
             series: {
                 select: {
                     name: true
@@ -55,6 +64,16 @@ export default async function ReportPage(props: PageProps) {
                                 <div>
                                     <dt className="text-gray-600">Series</dt>
                                     <dd className="font-medium">{report.series.name}</dd>
+                                </div>
+                                <div>
+                                    <dt className="text-gray-600">Status</dt>
+                                    <dd className="font-medium mt-1">
+                                        <StatusSelector
+                                            reportId={report.id}
+                                            initialStatus={report.status}
+                                            isAdmin={admin}
+                                        />
+                                    </dd>
                                 </div>
                             </dl>
                         </div>
