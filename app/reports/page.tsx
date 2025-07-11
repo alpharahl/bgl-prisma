@@ -1,6 +1,7 @@
 import { auth } from "@/auth";
 import { getUserReports } from "@/actions/reports";
 import Link from "next/link";
+import type { ReportListItem } from "./types";
 
 export default async function ReportsPage() {
     const session = await auth();
@@ -16,7 +17,14 @@ export default async function ReportsPage() {
         );
     }
 
-    const reports = await getUserReports();
+    const reports = await getUserReports() as ReportListItem[];
+
+    const statusColors = {
+        IN_REVIEW: 'bg-yellow-100 text-yellow-800',
+        PENALTY_ASSIGNED: 'bg-blue-100 text-blue-800',
+        UNDER_APPEAL: 'bg-purple-100 text-purple-800',
+        NO_FURTHER_ACTION: 'bg-gray-100 text-gray-800'
+    } as const;
 
     return (
         <main className="min-h-screen p-4">
@@ -36,42 +44,40 @@ export default async function ReportsPage() {
                 ) : (
                     <div className="space-y-4">
                         {reports.map((report) => (
-                            <div 
-                                key={report.id} 
-                                className="bg-white shadow rounded-lg p-4 border border-gray-200"
+                            <Link
+                                key={report.id}
+                                href={`/reports/${report.id}`}
+                                className="block bg-white shadow rounded-lg p-4 border border-gray-200 hover:border-blue-300 transition-colors"
                             >
-                                <div className="flex justify-between items-start mb-2">
-                                    <div>
+                                <div className="flex justify-between items-start">
+                                    <div className="space-y-2">
                                         <h2 className="text-lg font-semibold">
                                             Report against {report.offendingDriver}
                                         </h2>
-                                        <div className="flex items-center gap-2 mt-1">
-                                            <span className={`text-sm px-2 py-1 rounded ${
-                                                report.status === 'IN_REVIEW' ? 'bg-yellow-100 text-yellow-800' :
-                                                report.status === 'PENALTY_ASSIGNED' ? 'bg-red-100 text-red-800' :
-                                                report.status === 'UNDER_APPEAL' ? 'bg-purple-100 text-purple-800' :
-                                                'bg-gray-100 text-gray-800'
-                                            }`}>
-                                                {report.status.replace(/_/g, ' ')}
+                                        <div className="flex flex-col sm:flex-row sm:items-center gap-2">
+                                            {report.status && (
+                                                <span className={`inline-block px-2 py-1 rounded text-sm ${statusColors[report.status] || 'bg-gray-100 text-gray-800'}`}>
+                                                    {report.status.replace('_', ' ')}
+                                                </span>
+                                            )}
+                                            <span className="text-gray-600 text-sm">
+                                                From: {report.reportingDriver}
                                             </span>
-                                            <span className="text-sm text-gray-500">
-                                                Series: {report.series.name}
-                                            </span>
+                                            <span className="text-gray-600 text-sm hidden sm:inline">•</span>
+                                            {report.series && (
+                                                <span className="text-gray-600 text-sm">
+                                                    Series: {report.series.name}
+                                                </span>
+                                            )}
                                         </div>
+                                        {report.message && (
+                                            <p className="text-gray-500 text-sm line-clamp-2">
+                                                {report.message}
+                                            </p>
+                                        )}
                                     </div>
                                 </div>
-                                <p className="text-gray-700 mb-2">{report.description}</p>
-                                <div className="mt-3">
-                                    <a 
-                                        href={report.link}
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="text-blue-600 hover:underline text-sm"
-                                    >
-                                        View Clip
-                                    </a>
-                                </div>
-                            </div>
+                            </Link>
                         ))}
                     </div>
                 )}
