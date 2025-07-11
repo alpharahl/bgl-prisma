@@ -2,11 +2,12 @@ import { auth } from "@/auth";
 import prisma from "@/lib/prisma";
 import { notFound } from "next/navigation";
 
-export default async function ReportPage({
-    params
-}: {
-    params: { report_id: string }
-}) {
+interface PageProps {
+    params: Promise<{ report_id: string }>;
+}
+
+export default async function ReportPage(props: PageProps) {
+    const params = await props.params;
     const session = await auth();
     
     if (!session?.user) {
@@ -22,7 +23,7 @@ export default async function ReportPage({
 
     const report = await prisma.report.findUnique({
         where: {
-            id: parseInt(params.report_id),
+            id: parseInt(params.report_id.toString()),
         },
         include: {
             series: {
