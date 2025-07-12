@@ -2,9 +2,16 @@ import { auth } from "@/auth";
 import { getUserReports } from "@/actions/reports";
 import Link from "next/link";
 import type { ReportListItem } from "./types";
+import isAdmin from "@/lib/isAdmin";
 
-export default async function ReportsPage() {
+export default async function ReportsPage({
+    searchParams
+}: {
+    searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) {
     const session = await auth();
+    const isAdminUser = await isAdmin();
+    const resolvedParams = await searchParams;
     
     if (!session?.user) {
         return (
@@ -17,7 +24,9 @@ export default async function ReportsPage() {
         );
     }
 
-    const reports = await getUserReports() as ReportListItem[];
+    const showAllReports = resolvedParams.view === 'all';
+    const showActive = resolvedParams.status === 'active';
+    const reports = await getUserReports(showAllReports, showActive) as ReportListItem[];
 
     const statusColors = {
         IN_REVIEW: 'bg-yellow-100 text-yellow-800',
@@ -30,7 +39,9 @@ export default async function ReportsPage() {
         <main className="min-h-screen p-4">
             <div className="max-w-4xl mx-auto">
                 <div className="flex justify-between items-center mb-6">
-                    <h1 className="text-2xl font-bold">My Reports</h1>
+                    <h1 className="text-2xl font-bold">
+                        {showAllReports ? 'All Reports' : 'My Reports'}
+                    </h1>
                     <Link 
                         href="/report/new" 
                         className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
@@ -39,8 +50,33 @@ export default async function ReportsPage() {
                     </Link>
                 </div>
 
+                <div className="mb-6 flex gap-4">
+                    {isAdminUser && (
+                        <Link
+                            href={`/reports?${showAllReports ? '' : 'view=all'}${showActive ? '&status=active' : ''}`}
+                            className={`px-4 py-2 rounded transition-colors ${
+                                showAllReports 
+                                    ? 'bg-blue-600 text-white' 
+                                    : 'bg-gray-100 hover:bg-gray-200 text-gray-800'
+                            }`}
+                        >
+                            {showAllReports ? 'Show My Reports' : 'Show All Reports'}
+                        </Link>
+                    )}
+                    <Link
+                        href={`/reports?${showAllReports ? 'view=all&' : ''}status=${showActive ? '' : 'active'}`}
+                        className={`px-4 py-2 rounded transition-colors ${
+                            showActive 
+                                ? 'bg-blue-600 text-white' 
+                                : 'bg-gray-100 hover:bg-gray-200 text-gray-800'
+                        }`}
+                    >
+                        {showActive ? 'Show All Statuses' : 'Show Active Only'}
+                    </Link>
+                </div>
+
                 {reports.length === 0 ? (
-                    <p className="text-gray-600">You haven&apos;t submitted any reports yet.</p>
+                    <p className="text-gray-600">No reports found.</p>
                 ) : (
                     <div className="space-y-4">
                         {reports.map((report) => (

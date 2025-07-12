@@ -1,4 +1,5 @@
-The app is a NextJS 15 application.
+The app is a NextJS 15 application..
+Since it's nextjs 15 all params and search params must be promises.
 
 We use async server applications whenever possible.
 
