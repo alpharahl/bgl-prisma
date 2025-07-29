@@ -29,18 +29,19 @@ export async function parseChampionshipText(text: string, championshipId: number
   
   Instead of returning <#960689728095682610> return "Sporting Regulations"
 
+  All text should be returned in HTML format
+
   Return the data in a structured format that can be parsed as JSON. Format:
-  [
-    {
-      "name": "Championship Name",
-      "description": "Description text",
-      "schedule": "Schedule text",
-      "sections": [{
-        "name": "Section Name",
-        "bullets": ["html formatted bullet 1", "html formatted bullet 2"]
-      }]
-    }
-  ]
+  
+{
+    "name": "Championship Name",
+    "description": "Description text",
+    "schedule": "Schedule text",
+    "sections": [{
+    "name": "Section Name",
+    "bullets": ["html formatted bullet 1", "html formatted bullet 2"]
+    }]
+}
   
   Text to parse:
   ${text}`;

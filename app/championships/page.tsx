@@ -7,19 +7,16 @@ import Link from "next/link";
 
 const Page = async () => {
   const [championships, isAdminUser] = await Promise.all([
-    prisma.series.findMany({
-      include: {
-        cars: true,
-        sections: true
-      },
-      orderBy: {
-        order: 'asc',
-      }
+    prisma.championship.findMany({
+      // orderBy: {
+      //   order: 'asc',
+      // }
     }),
 
     isAdmin()
   ]);
 
+  console.log('Championships:', championships);
   return (
     <div className={"px-5 lg:max-w-[75%] bg-transparent mx-auto"}>
       {isAdminUser && (

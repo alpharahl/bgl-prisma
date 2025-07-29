@@ -1,5 +1,5 @@
 import React from 'react';
-import {Prisma} from "@prisma/client";
+import {Championship, Prisma} from "@prisma/client";
 import Link from 'next/link';
 import { auth } from "@/auth";
 import isAdmin from "@/lib/isAdmin";
@@ -9,11 +9,13 @@ type SeriesWithCarsAndSections = Prisma.SeriesGetPayload<{
 }>;
 
 interface ChampionshipProps {
-  championship: SeriesWithCarsAndSections;
+  championship: Championship;
   isAdmin?: boolean;
 }
 
 const Championship = ({championship, isAdmin}: ChampionshipProps) => {
+  
+  const sections = championship.sections
   return (
     <div className={`w-full border-2 border-primary mx-auto bg-primary/70 text-white m-5`}>        <div
           className={`w-full h-36 relative p-3 bg-repeat bg-[url(/assets/twill.png)] flex justify-center items-center`}
@@ -33,15 +35,15 @@ const Championship = ({championship, isAdmin}: ChampionshipProps) => {
           )}
         </div>
       <div className="md:grid grid-cols-2 gap-5 p-2">
-        {championship.sections.map(section => (
-          <div key={`${championship.id} -- ${section.id}`}>
+        {sections && sections.map(section => (
+          <div key={`${championship.id} -- ${section.name}`}>
             <h3 className={"text-2xl text-left text-orange-300 font-bold mb-2 border-b-2 border-b-orange-300"}>
-              {section.title}
+              {section.name}
             </h3>
             <ol className={"px-3"}>
-              {section.content.map((content, index) => (
-                <li className={"mb-1 text-left"} key={`${championship.id} -- ${section.id} -- ${index}`}>
-                  {content}
+              {section.bullets.map((content, index) => (
+                <li className={"mb-1 text-left max-w-md"} key={`${championship.id} -- ${section.id} -- ${index}`} dangerouslySetInnerHTML={{ __html: content }}>
+
                 </li>
               ))}
             </ol>

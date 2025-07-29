@@ -20,14 +20,14 @@ export default async function ChampionshipEditPage({ params: paramsPromise }: { 
     redirect("/");
   }
 
-  const championship = await prisma.series.findUnique({
+  const championship = await prisma.championship.findUnique({
     where: {
       id: parseInt(params.id)
     },
-    include: {
-      cars: true,
-      sections: true
-    }
+    // include: {
+    //   cars: true,
+    //   sections: true
+    // }
   });
 
   if (!championship) {
@@ -65,7 +65,6 @@ export default async function ChampionshipEditPage({ params: paramsPromise }: { 
             </form>
           </div>
         </div>
-        <ChampionshipEditForm championship={championship} />
       </div>
     </main>
   );

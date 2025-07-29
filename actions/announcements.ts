@@ -37,7 +37,9 @@ export async function fetchAnnouncements(channelId: string, championshipId: numb
     await prisma.championship.update({
       where: { id: championshipId },
       data: {
-        sections: res.data
+        sections: res.data.sections,
+        description: res.data.description || null,
+        schedule: res.data.schedule || null
       }
     })
   } catch (error) {
