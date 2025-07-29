@@ -35,7 +35,9 @@ const ChampionshipPage = ({championship, isAdmin}: ChampionshipProps) => {
           )}
         </div>
       <div className="md:grid grid-cols-2 gap-5 p-2">
-        {sections && sections.map((section: any) => (
+        
+        { //@ts-ignore
+        sections && sections.map((section: any) => (
           <div key={`${championship.id} -- ${section.name}`}>
             <h3 className={"text-2xl text-left text-orange-300 font-bold mb-2 border-b-2 border-b-orange-300"}>
               {section.name}
