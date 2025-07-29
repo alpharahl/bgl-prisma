@@ -10,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@headlessui/react": "^2.2.3",
     "@prisma/adapter-neon": "^6.8.2",
     "@prisma/adapter-pg": "^6.8.2",

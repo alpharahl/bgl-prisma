@@ -3,6 +3,8 @@
 import { auth } from "@/auth";
 import isAdmin from "@/lib/isAdmin";
 import { getAnnouncementChannelMessages, isAnnouncementChannel, type DiscordMessage } from "@/lib/discord/announcements";
+import { parse } from "path";
+import { parseChampionshipData } from "./parseChampionship";
 
 export async function fetchAnnouncements(channelId: string): Promise<DiscordMessage[]> {
   'use server'
@@ -26,7 +28,11 @@ export async function fetchAnnouncements(channelId: string): Promise<DiscordMess
     // Fetch messages
     const messages = await getAnnouncementChannelMessages(channelId);
     console.log('Discord messages:', JSON.stringify(messages, null, 2));
-    return messages;
+    const text = messages.flatMap(message => {
+      return message.content
+    });
+    const res = await parseChampionshipData(text.join('\n'));
+    return res.data;
   } catch (error) {
     console.error('Error fetching announcements:', error);
     throw new Error('Failed to fetch announcements');
