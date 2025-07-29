@@ -5,6 +5,7 @@ import isAdmin from "@/lib/isAdmin";
 import { getAnnouncementChannelMessages, isAnnouncementChannel, type DiscordMessage } from "@/lib/discord/announcements";
 
 export async function fetchAnnouncements(channelId: string): Promise<DiscordMessage[]> {
+  'use server'
   const session = await auth();
   
   if (!session || !session.user) {
