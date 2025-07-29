@@ -24,8 +24,8 @@ export default function AnnouncementList() {
     onSubmit: async (values) => {
       try {
         setError(null);
-        const announcements = await fetchAnnouncements(values.channelId);
-        setMessages(announcements);
+        const announcements = await fetchAnnouncements(values.channelId, 999);
+        // setMessages(announcements);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to fetch announcements');
       }

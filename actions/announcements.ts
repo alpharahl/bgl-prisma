@@ -34,12 +34,16 @@ export async function fetchAnnouncements(channelId: string, championshipId: numb
     });
     const res = await parseChampionshipData(text.join('\n'), championshipId);
     console.log('Parsed championship data:', res);
+    //@ts-ignore
     await prisma.championship.update({
       where: { id: championshipId },
       data: {
-        sections: res.data.sections,
-        description: res.data.description || null,
-        schedule: res.data.schedule || null
+        //@ts-ignore
+        sections: res.data?.sections || null,
+        //@ts-ignore
+        description: res.data?.description || null,
+        //@ts-ignore
+        schedule: res.data?.schedule || null
       }
     })
   } catch (error) {

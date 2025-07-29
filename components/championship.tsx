@@ -13,8 +13,8 @@ interface ChampionshipProps {
   isAdmin?: boolean;
 }
 
-const Championship = ({championship, isAdmin}: ChampionshipProps) => {
-  
+const ChampionshipPage = ({championship, isAdmin}: ChampionshipProps) => {
+  //@ts-ignore
   const sections = championship.sections
   return (
     <div className={`w-full border-2 border-primary mx-auto bg-primary/70 text-white m-5`}>        <div
@@ -35,13 +35,13 @@ const Championship = ({championship, isAdmin}: ChampionshipProps) => {
           )}
         </div>
       <div className="md:grid grid-cols-2 gap-5 p-2">
-        {sections && sections.map(section => (
+        {sections && sections.map((section: any) => (
           <div key={`${championship.id} -- ${section.name}`}>
             <h3 className={"text-2xl text-left text-orange-300 font-bold mb-2 border-b-2 border-b-orange-300"}>
               {section.name}
             </h3>
             <ol className={"px-3"}>
-              {section.bullets.map((content, index) => (
+              {section.bullets.map((content: string, index: number) => (
                 <li className={"mb-1 text-left max-w-md"} key={`${championship.id} -- ${section.id} -- ${index}`} dangerouslySetInnerHTML={{ __html: content }}>
 
                 </li>
@@ -53,4 +53,4 @@ const Championship = ({championship, isAdmin}: ChampionshipProps) => {
     </div>
   )
 }
-export default Championship
+export default ChampionshipPage
