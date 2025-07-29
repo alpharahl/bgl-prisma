@@ -5,8 +5,9 @@ import isAdmin from "@/lib/isAdmin";
 import { getAnnouncementChannelMessages, isAnnouncementChannel, type DiscordMessage } from "@/lib/discord/announcements";
 import { parse } from "path";
 import { parseChampionshipData } from "./parseChampionship";
+import prisma from "@/lib/prisma";
 
-export async function fetchAnnouncements(channelId: string): Promise<DiscordMessage[]> {
+export async function fetchAnnouncements(channelId: string, championshipId: number): Promise<void> {
   'use server'
   const session = await auth();
   
@@ -27,12 +28,18 @@ export async function fetchAnnouncements(channelId: string): Promise<DiscordMess
 
     // Fetch messages
     const messages = await getAnnouncementChannelMessages(channelId);
-    console.log('Discord messages:', JSON.stringify(messages, null, 2));
+    // console.log('Discord messages:', JSON.stringify(messages, null, 2));
     const text = messages.flatMap(message => {
       return message.content
     });
-    const res = await parseChampionshipData(text.join('\n'));
-    return res.data;
+    const res = await parseChampionshipData(text.join('\n'), championshipId);
+    console.log('Parsed championship data:', res);
+    await prisma.championship.update({
+      where: { id: championshipId },
+      data: {
+        sections: res.data
+      }
+    })
   } catch (error) {
     console.error('Error fetching announcements:', error);
     throw new Error('Failed to fetch announcements');

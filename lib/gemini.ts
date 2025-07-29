@@ -2,14 +2,20 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 
 const gemini = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
+interface Section {
+  name: string;
+  bullets: string[];
+}
+
 interface ChampionshipSection {
   name: string;
   description: string;
   requirements?: string[];
   schedule?: string;
+  sections?: Section[];
 }
 
-export async function parseChampionshipText(text: string): Promise<ChampionshipSection[]> {
+export async function parseChampionshipText(text: string, championshipId: number): Promise<ChampionshipSection[]> {
   const model = gemini.getGenerativeModel({ model: "gemini-2.0-flash", generationConfig: {
     responseMimeType: "application/json",
     
@@ -18,18 +24,20 @@ export async function parseChampionshipText(text: string): Promise<ChampionshipS
   const prompt = `Parse the following text into championship sections. For each championship, extract:
   - Name of the championship
   - Description
-  - Requirements (if any)
+  - Schedule (if any)
   - Sections (remaining sections)
   
+  Instead of returning <#960689728095682610> return "Sporting Regulations"
+
   Return the data in a structured format that can be parsed as JSON. Format:
   [
     {
       "name": "Championship Name",
       "description": "Description text",
-      "requirements": ["req1", "req2"],
+      "schedule": "Schedule text",
       "sections": [{
         "name": "Section Name",
-        "bullets": ["bullet 1", "bullet 2"]
+        "bullets": ["html formatted bullet 1", "html formatted bullet 2"]
       }]
     }
   ]

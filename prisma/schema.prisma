@@ -130,4 +130,5 @@ model Championship {
   discordOverviewChannel String
   createdAt             DateTime @default(now())
   updatedAt             DateTime @updatedAt
+  sections              Json?
 }

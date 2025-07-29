@@ -2,9 +2,9 @@
 
 import { parseChampionshipText } from "@/lib/gemini";
 
-export async function parseChampionshipData(text: string) {
+export async function parseChampionshipData(text: string, id: number) {
   try {
-    const championships = await parseChampionshipText(text);
+    const championships = await parseChampionshipText(text, id);
     return { success: true, data: championships };
   } catch (error) {
     console.error("Error parsing championship data:", error);

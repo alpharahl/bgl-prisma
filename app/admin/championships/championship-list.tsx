@@ -150,7 +150,7 @@ export default function ChampionshipList({ championships: initialChampionships }
                                         <button
                                             type="button"
                                             onClick={async () => {
-                                                const res = await fetchAnnouncements(championship.discordOverviewChannel);
+                                                const res = await fetchAnnouncements(championship.discordOverviewChannel, championship.id);
                                                 console.log("results:", res)
                                             }}
                                         >Fetch Announcements
