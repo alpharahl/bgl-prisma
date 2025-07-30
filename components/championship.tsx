@@ -21,19 +21,11 @@ const ChampionshipPage = ({championship, isAdmin}: ChampionshipProps) => {
           className={`w-full h-36 relative p-3 bg-repeat bg-[url(/assets/twill.png)] flex justify-center items-center`}
         >
           <h2 className={"text-2xl md:text-6xl text-orange-400"}>{championship.name}</h2>
-          {isAdmin && (
-            <Link
-              href={`/championships/${championship.id}/edit`}
-              className="absolute top-2 right-2 px-3 py-1 bg-orange-500 text-white rounded hover:bg-orange-600 transition flex items-center gap-1 text-sm"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/>
-                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/>
-              </svg>
-              Edit
-            </Link>
-          )}
+          
         </div>
+        {/* <div>
+          {championship.description}
+        </div> */}
       <div className="md:grid grid-cols-2 gap-5 p-2">
         
         { //@ts-ignore

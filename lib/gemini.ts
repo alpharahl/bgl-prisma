@@ -23,19 +23,18 @@ export async function parseChampionshipText(text: string, championshipId: number
 
   const prompt = `Parse the following text into championship sections. For each championship, extract:
   - Name of the championship
-  - Description
   - Schedule (if any)
   - Sections (remaining sections)
   
   Instead of returning <#960689728095682610> return "Sporting Regulations"
   Ignore any information about bot commands or Discord channel IDs
   All text should be returned in HTML format
+  If the text is a link, format it as an html link a tag with human readable text like <a href="link">Short link name</a>.
 
   Return the data in a structured format that can be parsed as a JSON object, not an array. Format:
   
 {
-    "name": "Championship Name",
-    "description": "Description text",
+    "name": "Championship Name",\
     "schedule": "Schedule text",
     "sections": [{
     "name": "Section Name",
