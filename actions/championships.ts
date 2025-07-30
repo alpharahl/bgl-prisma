@@ -5,7 +5,7 @@ import { auth } from "@/auth";
 import isAdmin from "@/lib/isAdmin";
 import { revalidatePath } from "next/cache";
 
-export async function createChampionship(name: string, discordOverviewChannel: string) {
+export async function createChampionship(name: string, discordOverviewChannel: string, order: number = 10) {
     const session = await auth();
     if (!session || !await isAdmin()) {
         throw new Error("Unauthorized");
@@ -14,7 +14,8 @@ export async function createChampionship(name: string, discordOverviewChannel: s
     const championship = await prisma.championship.create({
         data: {
             name,
-            discordOverviewChannel
+            discordOverviewChannel,
+            order
         }
     });
 
@@ -36,7 +37,7 @@ export async function getAllChampionships() {
     });
 }
 
-export async function updateChampionship(id: number, data: { name?: string, discordOverviewChannel?: string }) {
+export async function updateChampionship(id: number, data: { name?: string, discordOverviewChannel?: string, order?: number }) {
     const session = await auth();
     if (!session || !await isAdmin()) {
         throw new Error("Unauthorized");

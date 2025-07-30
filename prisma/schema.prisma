@@ -4,6 +4,7 @@
 generator client {
   provider        = "prisma-client-js"
   previewFeatures = ["driverAdapters"]
+  output   = "../node_modules/.prisma/client"
 }
 
 datasource db {
@@ -133,4 +134,5 @@ model Championship {
   sections              Json?
   description           String?
   schedule              String?
+  order                 Int @default(10)
 }

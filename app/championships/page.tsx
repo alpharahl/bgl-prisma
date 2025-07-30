@@ -8,9 +8,11 @@ import Link from "next/link";
 const Page = async () => {
   const [championships, isAdminUser] = await Promise.all([
     prisma.championship.findMany({
-      // orderBy: {
-      //   order: 'asc',
-      // }
+      orderBy: [
+        {
+          order: 'asc'
+        }
+      ]
     }),
 
     isAdmin()

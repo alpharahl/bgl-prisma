@@ -9,12 +9,14 @@ import { fetchAnnouncements } from '@/actions/announcements';
 const ChampionshipSchema = Yup.object().shape({
     name: Yup.string().required('Required'),
     discordOverviewChannel: Yup.string().required('Required'),
+    order: Yup.number().required('Required').min(0, 'Must be a positive number'),
 });
 
 type Championship = {
     id: number;
     name: string;
     discordOverviewChannel: string;
+    order: number;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -30,14 +32,14 @@ export default function ChampionshipList({ championships: initialChampionships }
         }
     };
 
-    const handleUpdate = async (id: number, values: { name: string; discordOverviewChannel: string }) => {
+    const handleUpdate = async (id: number, values: { name: string; discordOverviewChannel: string; order: number }) => {
         const updated = await updateChampionship(id, values);
         setChampionships(championships.map(c => c.id === id ? { ...c, ...updated } : c));
         setEditingId(null);
     };
 
-    const handleCreate = async (values: { name: string; discordOverviewChannel: string }, { resetForm }: { resetForm: () => void }) => {
-        const newChampionship = await createChampionship(values.name, values.discordOverviewChannel);
+    const handleCreate = async (values: { name: string; discordOverviewChannel: string; order: number }, { resetForm }: { resetForm: () => void }) => {
+        const newChampionship = await createChampionship(values.name, values.discordOverviewChannel, values.order);
         setChampionships([newChampionship, ...championships]);
         resetForm();
     };
@@ -47,7 +49,7 @@ export default function ChampionshipList({ championships: initialChampionships }
             <div className="bg-white shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl md:col-span-2">
                 <div className="px-4 py-6 sm:p-8">
                     <Formik
-                        initialValues={{ name: '', discordOverviewChannel: '' }}
+                        initialValues={{ name: '', discordOverviewChannel: '', order: 10 }}
                         validationSchema={ChampionshipSchema}
                         onSubmit={handleCreate}
                     >
@@ -77,6 +79,18 @@ export default function ChampionshipList({ championships: initialChampionships }
                                     )}
                                 </div>
 
+                                <div>
+                                    <label htmlFor="order" className="block text-sm font-medium leading-6 text-gray-900">
+                                        Display Order
+                                    </label>
+                                    <Field
+                                        type="number"
+                                        name="order"
+                                        className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    />
+                                    {errors.order && touched.order && <div className="text-red-500 text-sm">{errors.order}</div>}
+                                </div>
+
                                 <button
                                     type="submit"
                                     className="rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
@@ -98,6 +112,7 @@ export default function ChampionshipList({ championships: initialChampionships }
                                     initialValues={{
                                         name: championship.name,
                                         discordOverviewChannel: championship.discordOverviewChannel,
+                                        order: championship.order,
                                     }}
                                     validationSchema={ChampionshipSchema}
                                     onSubmit={(values) => handleUpdate(championship.id, values)}
@@ -120,6 +135,15 @@ export default function ChampionshipList({ championships: initialChampionships }
                                                 {errors.discordOverviewChannel && touched.discordOverviewChannel && (
                                                     <div className="text-red-500 text-sm">{errors.discordOverviewChannel}</div>
                                                 )}
+                                            </div>
+
+                                            <div>
+                                                <Field
+                                                    type="number"
+                                                    name="order"
+                                                    className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                                />
+                                                {errors.order && touched.order && <div className="text-red-500 text-sm">{errors.order}</div>}
                                             </div>
 
                                             <div className="flex gap-2">
@@ -145,6 +169,7 @@ export default function ChampionshipList({ championships: initialChampionships }
                                     <div>
                                         <h3 className="text-base font-semibold leading-7 text-gray-900">{championship.name}</h3>
                                         <p className="mt-1 text-sm leading-6 text-gray-500">Channel ID: {championship.discordOverviewChannel}</p>
+                                        <p className="mt-1 text-sm leading-6 text-gray-500">Display Order: {championship.order}</p>
                                     </div>
                                     <div className="flex gap-2">
                                         <button
