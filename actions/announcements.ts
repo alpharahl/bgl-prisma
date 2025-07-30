@@ -35,7 +35,7 @@ export async function fetchAnnouncements(channelId: string, championshipId: numb
     const res = await parseChampionshipData(text.join('\n'), championshipId);
     console.log('Parsed championship data:', res);
     //@ts-ignore
-    await prisma.championship.update({
+    const championshipresult = await prisma.championship.update({
       where: { id: championshipId },
       data: {
         //@ts-ignore
@@ -46,6 +46,7 @@ export async function fetchAnnouncements(channelId: string, championshipId: numb
         schedule: res.data?.schedule || null
       }
     })
+    console.log('Championship updated:', championshipresult);
   } catch (error) {
     console.error('Error fetching announcements:', error);
     throw new Error('Failed to fetch announcements');

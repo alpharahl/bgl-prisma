@@ -28,10 +28,10 @@ export async function parseChampionshipText(text: string, championshipId: number
   - Sections (remaining sections)
   
   Instead of returning <#960689728095682610> return "Sporting Regulations"
-
+  Ignore any information about bot commands or Discord channel IDs
   All text should be returned in HTML format
 
-  Return the data in a structured format that can be parsed as JSON. Format:
+  Return the data in a structured format that can be parsed as a JSON object, not an array. Format:
   
 {
     "name": "Championship Name",
