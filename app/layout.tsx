@@ -39,9 +39,9 @@ export default function RootLayout({
          style={{backgroundImage: `url(${BG.src})`}}>
     </div>
     <div className="bg-primary/20 inset-0 overscroll-contain">
-      <Navbar/>
+      {/* <Navbar/> */}
       {children}
-      <Footer/>
+      {/* <Footer/> */}
     </div>
     </body>
     </html>
