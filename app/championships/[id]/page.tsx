@@ -26,6 +26,30 @@ export default async function ChampionshipPage({ params }: ChampionshipPageProps
         'Formula 4': {
             background: '/F4_Website_Vid.mov',
             logo: '/F4.png'
+        },
+        'GT3 Sprint': {
+            background: '/GT3_Website_Vid.mov',
+            logo: '/gt3.png'
+        },
+        'BWLMS': {
+            background: '/LMS_Website_Vid.mov',
+            logo: '/Le_Mans.png'
+        },
+        'Falken': {
+            background: '/Falken_Website_Vid.mov',
+            logo: '/falken.png'
+        },
+        "Vee's and Ray's": {
+            background: '/VeeRay_Website_Vid.mov',
+            logo: '/VnR.png'
+        },
+        'Arca': {
+            background: '/Falken_Website_Vid.mov',
+            logo: '/arca.png'
+        },
+        "Richard Burns Rally": {
+            background: '/RBR_Website_Vid.mov',
+            logo: '/RBR.png'
         }
     };
 
@@ -66,7 +90,7 @@ export default async function ChampionshipPage({ params }: ChampionshipPageProps
                 </div>
 
                 <p className=" mx-auto mt-4 text-lg  max-w-xl mt-20">
-                    {championship.description}
+                    {/* {championship.description} */}
                 </p>
 
             </div>
