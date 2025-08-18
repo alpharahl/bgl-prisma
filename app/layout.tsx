@@ -34,19 +34,8 @@ export default function RootLayout({
     <body
       className={`flex flex-col min-h-screen gap-3 min-w-screen ${comfortaa.className}`}
     >
-    <div className=" fixed inset-0 h-[100%] bg-cover -z-10  bg-fixed bg-no-repeat">
-      <video
-        src="/BWRL_Website_Main_CC_Vid.mov"
-        autoPlay
-        loop
-        muted
-        // width={400}
-        className="w-full h-full object-cover"
-        // height={400}
-        />
-    </div>
     <div className="bg-primary/20 inset-0 overscroll-contain">
-      {/* <Navbar/> */}
+      <Navbar/>
       {children}
       {/* <Footer/> */}
     </div>
