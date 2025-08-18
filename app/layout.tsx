@@ -3,7 +3,6 @@ import {Comfortaa, Geist, Geist_Mono} from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/navbar";
 import Footer from "@/app/footer";
-import BG from '@/assets/bg.jpg';
 
 const comfortaa = Comfortaa({
   subsets: ['latin'],
@@ -35,8 +34,16 @@ export default function RootLayout({
     <body
       className={`flex flex-col min-h-screen gap-3 min-w-screen ${comfortaa.className}`}
     >
-    <div className=" fixed inset-0 h-[100%] bg-cover -z-10 opacity-25 bg-fixed bg-no-repeat"
-         style={{backgroundImage: `url(${BG.src})`}}>
+    <div className=" fixed inset-0 h-[100%] bg-cover -z-10  bg-fixed bg-no-repeat">
+      <video
+        src="/BWRL_Website_Main_CC_Vid.mov"
+        autoPlay
+        loop
+        muted
+        // width={400}
+        className="w-full h-full object-cover"
+        // height={400}
+        />
     </div>
     <div className="bg-primary/20 inset-0 overscroll-contain">
       {/* <Navbar/> */}

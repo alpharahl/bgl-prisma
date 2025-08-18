@@ -1,43 +1,29 @@
-import React from 'react';
-import Link from "next/link";
-import Image from "next/legacy/image";
-// import {isAdmin} from "@/utils/admin";
-import LeagueWhereInput = Prisma.LeagueWhereInput;
-import prisma from '@/lib/prisma';
-import { Prisma } from '@prisma/client';
+'use client';
 
-const OurLeagues = async () => {
-  const where:  LeagueWhereInput = {};
-  // if (!(await isAdmin())){
-  //   where.hidden = false;
-  // }
-  const leagues = await prisma.league.findMany({
-    select: {
-      name: true,
-      logo: true,
-      id: true,
-      game: true
-    },
-    where
-  });
-  return (
-    <div className="text-center flex flex-col w-full gap-10">
-      <h2 className="mx-auto text-3xl">Our Leagues</h2>
-      <div className="flex flex-wrap gap-10 justify-around items-center mx-10">
-        {leagues.map((league: any) => (
-          <Link
-            href={`/league/${league.id}`} key={league.id}
-            className={"flex flex-col items-center gap-3 border-2 p-3 rounded-lg transition-colors duration-200 hover:border-slate-400 hover:bg-slate-100"}
-          >
-            <div className="relative w-full h-[300px]">
-              {league.logo && <Image src={league.logo} alt={`${league.name} logo`} layout={"fill"} objectFit="contain" />}
-            </div>
-            <h3 className="text-2xl">{league.name}</h3>
-          </Link>
-        ))}
-      </div>
-    </div>
-  )
+import { Championship, Series } from '@prisma/client';
+import ChampionshipPage from '@/components/championship';
+import { use } from 'react';
+import Link from 'next/link';
+import Image from 'next/legacy/image';
+
+interface OurLeaguesProps {
+  championships: Promise<Championship[]>;
 }
 
-export default OurLeagues
+export default function OurLeagues({ championships }: OurLeaguesProps) {
+  const championshipsList = use(championships);
+  return (
+    <div className="bg-white/50 p-4 rounded-md flex flex-col gap-4 mt-auto">
+      <h1 className="text-primary text-lg md:text-4xl font-bold">Our Championships</h1>
+      <ol className=" flex justify-around items-center flex-wrap gap-x-1 gap-y-3 ">
+        {championshipsList.map((championship) => (
+          <li className="text-lg hover:bg-accent bg-primary text-white hover:text-white p-2 rounded-md" key={championship.id}>
+            <Link href={"/championships/" + championship.id}>
+              {championship.name}
+            </Link>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
