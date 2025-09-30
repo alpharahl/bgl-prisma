@@ -46,7 +46,9 @@ export const classifyReport = async ({
 }: classifyReportProps) => {
   'use server'
   const session = await auth()
-  if (!session){return}
+  if (!session) {
+    throw new Error("Authentication required to classify report.");
+  }
   const reportMessage = await postDiscordMessage(series, `New ${series.name} Report - ${round}`, round, session.user.discordId, offendingDriver)
   const report = await prisma.report.create({
     data: {
