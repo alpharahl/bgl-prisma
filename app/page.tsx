@@ -1,51 +1,33 @@
-import React, { ReactNode } from "react";
-import Link from "next/link";
-import Image from "next/legacy/image";
-import { auth } from "@/auth";
-import Discord from '@/assets/Discord-Logo-Blurple.svg';
 import prisma from "@/lib/prisma";
-import OurLeagues from "./our-leagues";
+import NewReportForm from "@/app/new-report-form";
+import { auth } from '@/auth';
+import SignInWithDiscord from "@/components/sign-in-button";
 
-export default async function Home(): Promise<ReactNode> {
-  const session = await auth();
-  const championships = prisma.championship.findMany({
-    orderBy: {
-      order: 'asc'
-    }
-  });
-  // const member = await getMember(session?.customData.discordId);
+const Page = async () => {
+  const [series, session] = await Promise.all([
+    prisma.series.findMany({
+      include: {
+        Event: true,
+      },
+    }),
+    auth(),
+  ]);
+
   return (
-    <div className="min-h-[600px] ">
-      <div className=" fixed inset-0 h-[100%] bg-cover -z-10  bg-fixed bg-no-repeat">
-      <video
-        src="/BWRL_Website_Main_CC_Vid.mov"
-        autoPlay
-        loop
-        muted
-        // width={400}
-        className="w-full h-full object-cover"
-        // height={400}
-        />
-    </div>
-      <main className=" w-full mx-auto min-h-screen p-10 flex flex-col">
-        <div className="max-w-4xl mb-5 bg-white/60 p-4 mb-auto rounded-md flex flex-col gap-8 row-start-2">
-
-          <h1 className={"font-bold text-primary text-4xl"}>Broken Wing Racing League</h1>
-          <p className={"text-xl font-bold"}>Welcome to BWRL. We are a community of sim racer's here for friendly competition.</p>
-          <div>
-            <Link href={"https://discord.com/invite/bwrl"}
-              className={"flex items-center flex-wrap text-2xl gap-4"}>
-              <div>Get Started on</div>
-              <Image src={Discord.src}
-                objectFit={"contain"}
-                width={211}
-                height={32} />
-            </Link>
-          </div>
+    <main className={"max-w-4xl mx-auto w-full flex flex-col gap-5 min-h-screen py-8"}>
+      {session?.user ? (
+        <>
+          <h1 className="text-2xl font-semibold">Submit an Incident Report</h1>
+          <NewReportForm series={series} />
+        </>
+      ) : (
+        <div className="flex flex-col items-start gap-4">
+          <h1 className="text-2xl font-semibold">Sign in to submit a report</h1>
+          <SignInWithDiscord />
         </div>
-        <OurLeagues championships={championships} />
-      </main>
-
-    </div>
+      )}
+    </main>
   );
-}
+};
+
+export default Page;
